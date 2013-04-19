@@ -14,29 +14,34 @@
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="OnStage.Entities" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityContainer Name="OnStageEntitiesContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Shows" EntityType="OnStage.Entities.Show" />
-          <EntitySet Name="MasterCueBooks" EntityType="OnStage.Entities.MasterCueBook" />
+          <EntitySet Name="StageManagerCueBooks" EntityType="OnStage.Entities.StageManagerCueBook" />
           <EntitySet Name="CueBooks" EntityType="OnStage.Entities.CueBook" />
           <AssociationSet Name="ShowMasterCueBook" Association="OnStage.Entities.ShowMasterCueBook">
             <End Role="Show" EntitySet="Shows" />
-            <End Role="MasterCueBook" EntitySet="MasterCueBooks" />
+            <End Role="MasterCueBook" EntitySet="StageManagerCueBooks" />
           </AssociationSet>
           <AssociationSet Name="ShowCueBook" Association="OnStage.Entities.ShowCueBook">
             <End Role="Show" EntitySet="Shows" />
             <End Role="CueBook" EntitySet="CueBooks" />
           </AssociationSet>
-          <EntitySet Name="MasterCues" EntityType="OnStage.Entities.MasterCue" />
+          <EntitySet Name="CueGroups" EntityType="OnStage.Entities.CueGroup" />
           <EntitySet Name="Cues" EntityType="OnStage.Entities.Cue" />
           <AssociationSet Name="CueBookCue" Association="OnStage.Entities.CueBookCue">
             <End Role="CueBook" EntitySet="CueBooks" />
             <End Role="Cue" EntitySet="Cues" />
           </AssociationSet>
           <AssociationSet Name="MasterCueBookMasterCue" Association="OnStage.Entities.MasterCueBookMasterCue">
-            <End Role="MasterCueBook" EntitySet="MasterCueBooks" />
-            <End Role="MasterCue" EntitySet="MasterCues" />
+            <End Role="MasterCueBook" EntitySet="StageManagerCueBooks" />
+            <End Role="MasterCue" EntitySet="CueGroups" />
           </AssociationSet>
           <AssociationSet Name="MasterCueCue" Association="OnStage.Entities.MasterCueCue">
-            <End Role="MasterCue" EntitySet="MasterCues" />
+            <End Role="MasterCue" EntitySet="CueGroups" />
             <End Role="Cue" EntitySet="Cues" />
+          </AssociationSet>
+          <EntitySet Name="Scripts" EntityType="OnStage.Entities.Script" />
+          <AssociationSet Name="ShowScript" Association="OnStage.Entities.ShowScript">
+            <End Role="Show" EntitySet="Shows" />
+            <End Role="Script" EntitySet="Scripts" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Show">
@@ -46,8 +51,10 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="MasterCueBook" Relationship="OnStage.Entities.ShowMasterCueBook" FromRole="Show" ToRole="MasterCueBook" />
           <NavigationProperty Name="CueBooks" Relationship="OnStage.Entities.ShowCueBook" FromRole="Show" ToRole="CueBook" />
+          <Property Type="String" Name="Title" Nullable="false" />
+          <NavigationProperty Name="Script" Relationship="OnStage.Entities.ShowScript" FromRole="Show" ToRole="Script" />
         </EntityType>
-        <EntityType Name="MasterCueBook">
+        <EntityType Name="StageManagerCueBook">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -62,12 +69,14 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Show" Relationship="OnStage.Entities.ShowCueBook" FromRole="CueBook" ToRole="Show" />
           <NavigationProperty Name="Cues" Relationship="OnStage.Entities.CueBookCue" FromRole="CueBook" ToRole="Cue" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="ShortName" Nullable="false" />
         </EntityType>
         <Association Name="ShowMasterCueBook">
           <End Type="OnStage.Entities.Show" Role="Show" Multiplicity="1" >
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="OnStage.Entities.MasterCueBook" Role="MasterCueBook" Multiplicity="1" />
+          <End Type="OnStage.Entities.StageManagerCueBook" Role="MasterCueBook" Multiplicity="1" />
         </Association>
         <Association Name="ShowCueBook">
           <End Type="OnStage.Entities.Show" Role="Show" Multiplicity="1" >
@@ -75,13 +84,13 @@
           </End>
           <End Type="OnStage.Entities.CueBook" Role="CueBook" Multiplicity="*" />
         </Association>
-        <EntityType Name="MasterCue">
+        <EntityType Name="CueGroup">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="MasterCueBook" Relationship="OnStage.Entities.MasterCueBookMasterCue" FromRole="MasterCue" ToRole="MasterCueBook" />
-          <NavigationProperty Name="SubCues" Relationship="OnStage.Entities.MasterCueCue" FromRole="MasterCue" ToRole="Cue" />
+          <NavigationProperty Name="StageManagerCueBook" Relationship="OnStage.Entities.MasterCueBookMasterCue" FromRole="MasterCue" ToRole="MasterCueBook" />
+          <NavigationProperty Name="Cues" Relationship="OnStage.Entities.MasterCueCue" FromRole="MasterCue" ToRole="Cue" />
         </EntityType>
         <EntityType Name="Cue">
           <Key>
@@ -89,6 +98,10 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="CueBook" Relationship="OnStage.Entities.CueBookCue" FromRole="Cue" ToRole="CueBook" />
+          <Property Type="Int32" Name="Number" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="false" />
+          <Property Type="Int64" Name="ScriptPosition" Nullable="false" />
         </EntityType>
         <Association Name="CueBookCue">
           <End Type="OnStage.Entities.CueBook" Role="CueBook" Multiplicity="1" >
@@ -97,14 +110,30 @@
           <End Type="OnStage.Entities.Cue" Role="Cue" Multiplicity="*" />
         </Association>
         <Association Name="MasterCueBookMasterCue">
-          <End Type="OnStage.Entities.MasterCueBook" Role="MasterCueBook" Multiplicity="1" />
-          <End Type="OnStage.Entities.MasterCue" Role="MasterCue" Multiplicity="*" />
+          <End Type="OnStage.Entities.StageManagerCueBook" Role="MasterCueBook" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="OnStage.Entities.CueGroup" Role="MasterCue" Multiplicity="*" />
         </Association>
         <Association Name="MasterCueCue">
-          <End Type="OnStage.Entities.MasterCue" Role="MasterCue" Multiplicity="1" >
+          <End Type="OnStage.Entities.CueGroup" Role="MasterCue" Multiplicity="1" >
             <OnDelete Action="Cascade" />
           </End>
           <End Type="OnStage.Entities.Cue" Role="Cue" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Script">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Binary" Name="Data" Nullable="false" />
+          <Property Type="String" Name="MimeType" Nullable="false" />
+        </EntityType>
+        <Association Name="ShowScript">
+          <End Type="OnStage.Entities.Show" Role="Show" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="OnStage.Entities.Script" Role="Script" Multiplicity="1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -133,33 +162,38 @@
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram Name="Entities" >
-        <EntityTypeShape EntityType="OnStage.Entities.Show" Width="1.5" PointX="6.75" PointY="1.375" Height="1.211080729166667" />
-        <EntityTypeShape EntityType="OnStage.Entities.MasterCueBook" Width="1.5" PointX="4.5" PointY="2.75" Height="1.2110807291666665" />
-        <EntityTypeShape EntityType="OnStage.Entities.CueBook" Width="1.5" PointX="9.375" PointY="2.75" Height="1.2110807291666665" />
+      <Diagram Name="Entities" DisplayType="true" >
+        <EntityTypeShape EntityType="OnStage.Entities.Show" Width="1.5" PointX="0.75" PointY="3.75" Height="1.9802864583333335" />
+        <EntityTypeShape EntityType="OnStage.Entities.StageManagerCueBook" Width="1.5" PointX="3" PointY="3.75" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="OnStage.Entities.CueBook" Width="1.5" PointX="3" PointY="6" Height="1.9802864583333317" />
         <AssociationConnector Association="OnStage.Entities.ShowMasterCueBook">
-          <ConnectorPoint PointX="6.75" PointY="2.0624995" />
-          <ConnectorPoint PointX="5.25" PointY="2.0624995" />
-          <ConnectorPoint PointX="5.25" PointY="2.75" />
+          <ConnectorPoint PointX="2.25" PointY="4.547841796875" />
+          <ConnectorPoint PointX="3" PointY="4.547841796875" />
         </AssociationConnector>
         <AssociationConnector Association="OnStage.Entities.ShowCueBook">
-          <ConnectorPoint PointX="8.25" PointY="2.0624995" />
-          <ConnectorPoint PointX="10.125" PointY="2.0624995" />
-          <ConnectorPoint PointX="10.125" PointY="2.75" />
+          <ConnectorPoint PointX="1.5" PointY="5.7302864583333335" />
+          <ConnectorPoint PointX="1.5" PointY="6.9901432291666659" />
+          <ConnectorPoint PointX="3" PointY="6.9901432291666659" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="OnStage.Entities.MasterCue" Width="1.5" PointX="4.5" PointY="4.75" Height="1.2110807291666665" />
-        <EntityTypeShape EntityType="OnStage.Entities.Cue" Width="1.5" PointX="9.5" PointY="4.875" Height="1.4033821614583335" />
+        <EntityTypeShape EntityType="OnStage.Entities.CueGroup" Width="1.5" PointX="5.25" PointY="3.75" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="OnStage.Entities.Cue" Width="1.5" PointX="7.5" PointY="4.875" Height="2.1725878906249996" />
         <AssociationConnector Association="OnStage.Entities.CueBookCue">
-          <ConnectorPoint PointX="10.1875" PointY="4.34568359375" />
-          <ConnectorPoint PointX="10.1875" PointY="4.875" />
+          <ConnectorPoint PointX="4.5" PointY="6.5237939453125" />
+          <ConnectorPoint PointX="7.5" PointY="6.5237939453125" />
         </AssociationConnector>
         <AssociationConnector Association="OnStage.Entities.MasterCueBookMasterCue">
-          <ConnectorPoint PointX="5.25" PointY="4.34568359375" />
-          <ConnectorPoint PointX="5.25" PointY="4.75" />
+          <ConnectorPoint PointX="4.5" PointY="4.547841796875" />
+          <ConnectorPoint PointX="5.25" PointY="4.547841796875" />
         </AssociationConnector>
         <AssociationConnector Association="OnStage.Entities.MasterCueCue">
-          <ConnectorPoint PointX="6" PointY="5.5766910807291667" />
-          <ConnectorPoint PointX="9.5" PointY="5.5766910807291667" />
+          <ConnectorPoint PointX="6.75" PointY="5.110341796875" />
+          <ConnectorPoint PointX="7.5" PointY="5.110341796875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="OnStage.Entities.Script" Width="1.5" PointX="3" PointY="1.375" Height="1.5956835937499998" />
+        <AssociationConnector Association="OnStage.Entities.ShowScript">
+          <ConnectorPoint PointX="1.5" PointY="3.75" />
+          <ConnectorPoint PointX="1.5" PointY="2.172841796875" />
+          <ConnectorPoint PointX="3" PointY="2.172841796875" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>

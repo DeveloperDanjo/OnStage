@@ -19,11 +19,12 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("OnStage.Entities", "ShowMasterCueBook", "Show", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.Show), "MasterCueBook", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.MasterCueBook))]
+[assembly: EdmRelationshipAttribute("OnStage.Entities", "ShowMasterCueBook", "Show", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.Show), "MasterCueBook", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.StageManagerCueBook))]
 [assembly: EdmRelationshipAttribute("OnStage.Entities", "ShowCueBook", "Show", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.Show), "CueBook", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OnStage.Entities.CueBook))]
 [assembly: EdmRelationshipAttribute("OnStage.Entities", "CueBookCue", "CueBook", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.CueBook), "Cue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OnStage.Entities.Cue))]
-[assembly: EdmRelationshipAttribute("OnStage.Entities", "MasterCueBookMasterCue", "MasterCueBook", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.MasterCueBook), "MasterCue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OnStage.Entities.MasterCue))]
-[assembly: EdmRelationshipAttribute("OnStage.Entities", "MasterCueCue", "MasterCue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.MasterCue), "Cue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OnStage.Entities.Cue))]
+[assembly: EdmRelationshipAttribute("OnStage.Entities", "MasterCueBookMasterCue", "MasterCueBook", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.StageManagerCueBook), "MasterCue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OnStage.Entities.CueGroup))]
+[assembly: EdmRelationshipAttribute("OnStage.Entities", "MasterCueCue", "MasterCue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.CueGroup), "Cue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(OnStage.Entities.Cue))]
+[assembly: EdmRelationshipAttribute("OnStage.Entities", "ShowScript", "Show", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.Show), "Script", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(OnStage.Entities.Script))]
 
 #endregion
 
@@ -94,18 +95,18 @@ namespace OnStage.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<MasterCueBook> MasterCueBooks
+        public ObjectSet<StageManagerCueBook> StageManagerCueBooks
         {
             get
             {
-                if ((_MasterCueBooks == null))
+                if ((_StageManagerCueBooks == null))
                 {
-                    _MasterCueBooks = base.CreateObjectSet<MasterCueBook>("MasterCueBooks");
+                    _StageManagerCueBooks = base.CreateObjectSet<StageManagerCueBook>("StageManagerCueBooks");
                 }
-                return _MasterCueBooks;
+                return _StageManagerCueBooks;
             }
         }
-        private ObjectSet<MasterCueBook> _MasterCueBooks;
+        private ObjectSet<StageManagerCueBook> _StageManagerCueBooks;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -126,18 +127,18 @@ namespace OnStage.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<MasterCue> MasterCues
+        public ObjectSet<CueGroup> CueGroups
         {
             get
             {
-                if ((_MasterCues == null))
+                if ((_CueGroups == null))
                 {
-                    _MasterCues = base.CreateObjectSet<MasterCue>("MasterCues");
+                    _CueGroups = base.CreateObjectSet<CueGroup>("CueGroups");
                 }
-                return _MasterCues;
+                return _CueGroups;
             }
         }
-        private ObjectSet<MasterCue> _MasterCues;
+        private ObjectSet<CueGroup> _CueGroups;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -154,6 +155,22 @@ namespace OnStage.Entities
             }
         }
         private ObjectSet<Cue> _Cues;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Script> Scripts
+        {
+            get
+            {
+                if ((_Scripts == null))
+                {
+                    _Scripts = base.CreateObjectSet<Script>("Scripts");
+                }
+                return _Scripts;
+            }
+        }
+        private ObjectSet<Script> _Scripts;
 
         #endregion
 
@@ -168,11 +185,11 @@ namespace OnStage.Entities
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the MasterCueBooks EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the StageManagerCueBooks EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToMasterCueBooks(MasterCueBook masterCueBook)
+        public void AddToStageManagerCueBooks(StageManagerCueBook stageManagerCueBook)
         {
-            base.AddObject("MasterCueBooks", masterCueBook);
+            base.AddObject("StageManagerCueBooks", stageManagerCueBook);
         }
     
         /// <summary>
@@ -184,11 +201,11 @@ namespace OnStage.Entities
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the MasterCues EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the CueGroups EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToMasterCues(MasterCue masterCue)
+        public void AddToCueGroups(CueGroup cueGroup)
         {
-            base.AddObject("MasterCues", masterCue);
+            base.AddObject("CueGroups", cueGroup);
         }
     
         /// <summary>
@@ -197,6 +214,14 @@ namespace OnStage.Entities
         public void AddToCues(Cue cue)
         {
             base.AddObject("Cues", cue);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Scripts EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToScripts(Script script)
+        {
+            base.AddObject("Scripts", script);
         }
 
         #endregion
@@ -221,10 +246,18 @@ namespace OnStage.Entities
         /// Create a new Cue object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static Cue CreateCue(global::System.Int32 id)
+        /// <param name="number">Initial value of the Number property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        /// <param name="scriptPosition">Initial value of the ScriptPosition property.</param>
+        public static Cue CreateCue(global::System.Int32 id, global::System.Int32 number, global::System.String name, global::System.String description, global::System.Int64 scriptPosition)
         {
             Cue cue = new Cue();
             cue.Id = id;
+            cue.Number = number;
+            cue.Name = name;
+            cue.Description = description;
+            cue.ScriptPosition = scriptPosition;
             return cue;
         }
 
@@ -258,6 +291,102 @@ namespace OnStage.Entities
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Number
+        {
+            get
+            {
+                return _Number;
+            }
+            set
+            {
+                OnNumberChanging(value);
+                ReportPropertyChanging("Number");
+                _Number = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Number");
+                OnNumberChanged();
+            }
+        }
+        private global::System.Int32 _Number;
+        partial void OnNumberChanging(global::System.Int32 value);
+        partial void OnNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ScriptPosition
+        {
+            get
+            {
+                return _ScriptPosition;
+            }
+            set
+            {
+                OnScriptPositionChanging(value);
+                ReportPropertyChanging("ScriptPosition");
+                _ScriptPosition = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ScriptPosition");
+                OnScriptPositionChanged();
+            }
+        }
+        private global::System.Int64 _ScriptPosition;
+        partial void OnScriptPositionChanging(global::System.Int64 value);
+        partial void OnScriptPositionChanged();
 
         #endregion
 
@@ -320,10 +449,14 @@ namespace OnStage.Entities
         /// Create a new CueBook object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static CueBook CreateCueBook(global::System.Int32 id)
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="shortName">Initial value of the ShortName property.</param>
+        public static CueBook CreateCueBook(global::System.Int32 id, global::System.String name, global::System.String shortName)
         {
             CueBook cueBook = new CueBook();
             cueBook.Id = id;
+            cueBook.Name = name;
+            cueBook.ShortName = shortName;
             return cueBook;
         }
 
@@ -357,6 +490,54 @@ namespace OnStage.Entities
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ShortName
+        {
+            get
+            {
+                return _ShortName;
+            }
+            set
+            {
+                OnShortNameChanging(value);
+                ReportPropertyChanging("ShortName");
+                _ShortName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ShortName");
+                OnShortNameChanged();
+            }
+        }
+        private global::System.String _ShortName;
+        partial void OnShortNameChanging(global::System.String value);
+        partial void OnShortNameChanged();
 
         #endregion
 
@@ -430,22 +611,22 @@ namespace OnStage.Entities
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="OnStage.Entities", Name="MasterCue")]
+    [EdmEntityTypeAttribute(NamespaceName="OnStage.Entities", Name="CueGroup")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class MasterCue : EntityObject
+    public partial class CueGroup : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new MasterCue object.
+        /// Create a new CueGroup object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static MasterCue CreateMasterCue(global::System.Int32 id)
+        public static CueGroup CreateCueGroup(global::System.Int32 id)
         {
-            MasterCue masterCue = new MasterCue();
-            masterCue.Id = id;
-            return masterCue;
+            CueGroup cueGroup = new CueGroup();
+            cueGroup.Id = id;
+            return cueGroup;
         }
 
         #endregion
@@ -491,15 +672,15 @@ namespace OnStage.Entities
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("OnStage.Entities", "MasterCueBookMasterCue", "MasterCueBook")]
-        public MasterCueBook MasterCueBook
+        public StageManagerCueBook StageManagerCueBook
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MasterCueBook>("OnStage.Entities.MasterCueBookMasterCue", "MasterCueBook").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StageManagerCueBook>("OnStage.Entities.MasterCueBookMasterCue", "MasterCueBook").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MasterCueBook>("OnStage.Entities.MasterCueBookMasterCue", "MasterCueBook").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StageManagerCueBook>("OnStage.Entities.MasterCueBookMasterCue", "MasterCueBook").Value = value;
             }
         }
         /// <summary>
@@ -507,17 +688,17 @@ namespace OnStage.Entities
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<MasterCueBook> MasterCueBookReference
+        public EntityReference<StageManagerCueBook> StageManagerCueBookReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MasterCueBook>("OnStage.Entities.MasterCueBookMasterCue", "MasterCueBook");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StageManagerCueBook>("OnStage.Entities.MasterCueBookMasterCue", "MasterCueBook");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<MasterCueBook>("OnStage.Entities.MasterCueBookMasterCue", "MasterCueBook", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<StageManagerCueBook>("OnStage.Entities.MasterCueBookMasterCue", "MasterCueBook", value);
                 }
             }
         }
@@ -529,7 +710,7 @@ namespace OnStage.Entities
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("OnStage.Entities", "MasterCueCue", "Cue")]
-        public EntityCollection<Cue> SubCues
+        public EntityCollection<Cue> Cues
         {
             get
             {
@@ -551,22 +732,316 @@ namespace OnStage.Entities
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="OnStage.Entities", Name="MasterCueBook")]
+    [EdmEntityTypeAttribute(NamespaceName="OnStage.Entities", Name="Script")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class MasterCueBook : EntityObject
+    public partial class Script : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new MasterCueBook object.
+        /// Create a new Script object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static MasterCueBook CreateMasterCueBook(global::System.Int32 id)
+        /// <param name="data">Initial value of the Data property.</param>
+        /// <param name="mimeType">Initial value of the MimeType property.</param>
+        public static Script CreateScript(global::System.Int32 id, global::System.Byte[] data, global::System.String mimeType)
         {
-            MasterCueBook masterCueBook = new MasterCueBook();
-            masterCueBook.Id = id;
-            return masterCueBook;
+            Script script = new Script();
+            script.Id = id;
+            script.Data = data;
+            script.MimeType = mimeType;
+            return script;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] Data
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_Data);
+            }
+            set
+            {
+                OnDataChanging(value);
+                ReportPropertyChanging("Data");
+                _Data = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Data");
+                OnDataChanged();
+            }
+        }
+        private global::System.Byte[] _Data;
+        partial void OnDataChanging(global::System.Byte[] value);
+        partial void OnDataChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MimeType
+        {
+            get
+            {
+                return _MimeType;
+            }
+            set
+            {
+                OnMimeTypeChanging(value);
+                ReportPropertyChanging("MimeType");
+                _MimeType = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MimeType");
+                OnMimeTypeChanged();
+            }
+        }
+        private global::System.String _MimeType;
+        partial void OnMimeTypeChanging(global::System.String value);
+        partial void OnMimeTypeChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OnStage.Entities", Name="Show")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Show : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Show object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="title">Initial value of the Title property.</param>
+        public static Show CreateShow(global::System.Int32 id, global::System.String title)
+        {
+            Show show = new Show();
+            show.Id = id;
+            show.Title = title;
+            return show;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Title
+        {
+            get
+            {
+                return _Title;
+            }
+            set
+            {
+                OnTitleChanging(value);
+                ReportPropertyChanging("Title");
+                _Title = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Title");
+                OnTitleChanged();
+            }
+        }
+        private global::System.String _Title;
+        partial void OnTitleChanging(global::System.String value);
+        partial void OnTitleChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OnStage.Entities", "ShowMasterCueBook", "MasterCueBook")]
+        public StageManagerCueBook MasterCueBook
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StageManagerCueBook>("OnStage.Entities.ShowMasterCueBook", "MasterCueBook").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StageManagerCueBook>("OnStage.Entities.ShowMasterCueBook", "MasterCueBook").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<StageManagerCueBook> MasterCueBookReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<StageManagerCueBook>("OnStage.Entities.ShowMasterCueBook", "MasterCueBook");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<StageManagerCueBook>("OnStage.Entities.ShowMasterCueBook", "MasterCueBook", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OnStage.Entities", "ShowCueBook", "CueBook")]
+        public EntityCollection<CueBook> CueBooks
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CueBook>("OnStage.Entities.ShowCueBook", "CueBook");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CueBook>("OnStage.Entities.ShowCueBook", "CueBook", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OnStage.Entities", "ShowScript", "Script")]
+        public Script Script
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Script>("OnStage.Entities.ShowScript", "Script").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Script>("OnStage.Entities.ShowScript", "Script").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Script> ScriptReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Script>("OnStage.Entities.ShowScript", "Script");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Script>("OnStage.Entities.ShowScript", "Script", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OnStage.Entities", Name="StageManagerCueBook")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class StageManagerCueBook : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new StageManagerCueBook object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static StageManagerCueBook CreateStageManagerCueBook(global::System.Int32 id)
+        {
+            StageManagerCueBook stageManagerCueBook = new StageManagerCueBook();
+            stageManagerCueBook.Id = id;
+            return stageManagerCueBook;
         }
 
         #endregion
@@ -650,138 +1125,17 @@ namespace OnStage.Entities
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("OnStage.Entities", "MasterCueBookMasterCue", "MasterCue")]
-        public EntityCollection<MasterCue> Cues
+        public EntityCollection<CueGroup> Cues
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MasterCue>("OnStage.Entities.MasterCueBookMasterCue", "MasterCue");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CueGroup>("OnStage.Entities.MasterCueBookMasterCue", "MasterCue");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MasterCue>("OnStage.Entities.MasterCueBookMasterCue", "MasterCue", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="OnStage.Entities", Name="Show")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Show : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Show object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static Show CreateShow(global::System.Int32 id)
-        {
-            Show show = new Show();
-            show.Id = id;
-            return show;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-
-        #endregion
-
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("OnStage.Entities", "ShowMasterCueBook", "MasterCueBook")]
-        public MasterCueBook MasterCueBook
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MasterCueBook>("OnStage.Entities.ShowMasterCueBook", "MasterCueBook").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MasterCueBook>("OnStage.Entities.ShowMasterCueBook", "MasterCueBook").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<MasterCueBook> MasterCueBookReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<MasterCueBook>("OnStage.Entities.ShowMasterCueBook", "MasterCueBook");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<MasterCueBook>("OnStage.Entities.ShowMasterCueBook", "MasterCueBook", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("OnStage.Entities", "ShowCueBook", "CueBook")]
-        public EntityCollection<CueBook> CueBooks
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CueBook>("OnStage.Entities.ShowCueBook", "CueBook");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CueBook>("OnStage.Entities.ShowCueBook", "CueBook", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CueGroup>("OnStage.Entities.MasterCueBookMasterCue", "MasterCue", value);
                 }
             }
         }

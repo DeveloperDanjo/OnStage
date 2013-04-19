@@ -35,10 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.3.0.2\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Configuration">
-      <HintPath>..\packages\Autofac.3.0.2\lib\net40\Autofac.Configuration.dll</HintPath>
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\packages\Autofac.Mvc3.2.6.3.862\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
@@ -77,6 +77,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\EntityFrameworkModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +204,10 @@
     <ProjectReference Include="..\OnStage.Entities\OnStage.Entities.csproj">
       <Project>{D0358E45-9E79-46CA-A628-BB8899321E15}</Project>
       <Name>OnStage.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnStage.Persistence\OnStage.Persistence.csproj">
+      <Project>{3571010D-5B02-44B3-90C9-4B917821BFE1}</Project>
+      <Name>OnStage.Persistence</Name>
     </ProjectReference>
     <ProjectReference Include="..\OnStage.Presentation.ApplicationModel\OnStage.Presentation.ApplicationModel.csproj">
       <Project>{0C06C0B3-982A-4C94-9DAE-FEB175268BFC}</Project>
