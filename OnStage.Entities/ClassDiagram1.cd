@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="OnStage.Entities.OnStageEntitiesContainer">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AEgADAAAARAAACgAAAIAAEAEAAEAAAABISAgBIAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OnStage.Entities.Cue">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACCARAAEEgAAAAgEAEIAQBRAAAYAAFAAQAAAAUAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OnStage.Entities.CueBook">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACCAAAIAAAAAAAAAAAIAQABAAEQMAAAAAAAAAeAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OnStage.Entities.CueGroup">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACCAAAAAAAAEAEAAAAAgAABAAAAAAAAAAAAAAUAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OnStage.Entities.Script">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AiACAAAAAAAAQAQAAAAAABAABAAAABAAAAAECEAUAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OnStage.Entities.Show">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACAAgAAAAAAEAAAAABAEAABIQAAAEAAAAgBAA0AAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OnStage.Entities.StageManagerCueBook">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACCAAAIAAAAAAAAAAAAAAABAAEAAQAAAAAAAAUAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

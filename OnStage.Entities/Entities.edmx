@@ -4,11 +4,173 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl" Namespace="Entities.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="EntitiesTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="OnStage.Entities.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="OnStageEntitiesStoreContainer">
+    <EntitySet Name="Shows" EntityType="OnStage.Entities.Store.Shows" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StageManagerCueBooks" EntityType="OnStage.Entities.Store.StageManagerCueBooks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CueBooks" EntityType="OnStage.Entities.Store.CueBooks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CueGroups" EntityType="OnStage.Entities.Store.CueGroups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cues" EntityType="OnStage.Entities.Store.Cues" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Scripts" EntityType="OnStage.Entities.Store.Scripts" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ShowMasterCueBook" Association="OnStage.Entities.Store.ShowMasterCueBook">
+      <End Role="Show" EntitySet="Shows" />
+      <End Role="MasterCueBook" EntitySet="StageManagerCueBooks" />
+    </AssociationSet>
+    <AssociationSet Name="ShowCueBook" Association="OnStage.Entities.Store.ShowCueBook">
+      <End Role="Show" EntitySet="Shows" />
+      <End Role="CueBook" EntitySet="CueBooks" />
+    </AssociationSet>
+    <AssociationSet Name="CueBookCue" Association="OnStage.Entities.Store.CueBookCue">
+      <End Role="CueBook" EntitySet="CueBooks" />
+      <End Role="Cue" EntitySet="Cues" />
+    </AssociationSet>
+    <AssociationSet Name="MasterCueBookMasterCue" Association="OnStage.Entities.Store.MasterCueBookMasterCue">
+      <End Role="MasterCueBook" EntitySet="StageManagerCueBooks" />
+      <End Role="MasterCue" EntitySet="CueGroups" />
+    </AssociationSet>
+    <AssociationSet Name="MasterCueCue" Association="OnStage.Entities.Store.MasterCueCue">
+      <End Role="MasterCue" EntitySet="CueGroups" />
+      <End Role="Cue" EntitySet="Cues" />
+    </AssociationSet>
+    <AssociationSet Name="ShowScript" Association="OnStage.Entities.Store.ShowScript">
+      <End Role="Show" EntitySet="Shows" />
+      <End Role="Script" EntitySet="Scripts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Shows">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StageManagerCueBooks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Show_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CueBooks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ShortName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Show_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CueGroups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StageManagerCueBook_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cues">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ScriptPosition" Type="bigint" Nullable="false" />
+    <Property Name="CueBook_Id" Type="int" Nullable="false" />
+    <Property Name="MasterCueCue_Cue_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Scripts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Data" Type="varbinary(max)" Nullable="false" />
+    <Property Name="MimeType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ShowScript_Script_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ShowMasterCueBook">
+    <End Role="Show" Type="OnStage.Entities.Store.Shows" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MasterCueBook" Type="OnStage.Entities.Store.StageManagerCueBooks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Show">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterCueBook">
+        <PropertyRef Name="Show_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ShowCueBook">
+    <End Role="Show" Type="OnStage.Entities.Store.Shows" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CueBook" Type="OnStage.Entities.Store.CueBooks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Show">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CueBook">
+        <PropertyRef Name="Show_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CueBookCue">
+    <End Role="CueBook" Type="OnStage.Entities.Store.CueBooks" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Cue" Type="OnStage.Entities.Store.Cues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CueBook">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cue">
+        <PropertyRef Name="CueBook_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MasterCueBookMasterCue">
+    <End Role="MasterCueBook" Type="OnStage.Entities.Store.StageManagerCueBooks" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MasterCue" Type="OnStage.Entities.Store.CueGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterCueBook">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterCue">
+        <PropertyRef Name="StageManagerCueBook_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MasterCueCue">
+    <End Role="MasterCue" Type="OnStage.Entities.Store.CueGroups" Multiplicity="1" />
+    <End Role="Cue" Type="OnStage.Entities.Store.Cues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterCue">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cue">
+        <PropertyRef Name="MasterCueCue_Cue_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ShowScript">
+    <End Role="Show" Type="OnStage.Entities.Store.Shows" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Script" Type="OnStage.Entities.Store.Scripts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Show">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Script">
+        <PropertyRef Name="ShowScript_Script_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="OnStage.Entities" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
@@ -49,7 +211,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="MasterCueBook" Relationship="OnStage.Entities.ShowMasterCueBook" FromRole="Show" ToRole="MasterCueBook" />
+          <NavigationProperty Name="StageManagerCueBook" Relationship="OnStage.Entities.ShowMasterCueBook" FromRole="Show" ToRole="MasterCueBook" />
           <NavigationProperty Name="CueBooks" Relationship="OnStage.Entities.ShowCueBook" FromRole="Show" ToRole="CueBook" />
           <Property Type="String" Name="Title" Nullable="false" />
           <NavigationProperty Name="Script" Relationship="OnStage.Entities.ShowScript" FromRole="Show" ToRole="Script" />
@@ -117,7 +279,6 @@
         </Association>
         <Association Name="MasterCueCue">
           <End Type="OnStage.Entities.CueGroup" Role="MasterCue" Multiplicity="1" >
-            <OnDelete Action="Cascade" />
           </End>
           <End Type="OnStage.Entities.Cue" Role="Cue" Multiplicity="*" />
         </Association>
@@ -139,13 +300,109 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="Entities" />
-        <Alias Key="Target" Value="Entities.Store" />
-        <EntityContainerMapping CdmEntityContainer="OnStageEntitiesContainer" StorageEntityContainer="EntitiesTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OnStageEntitiesStoreContainer" CdmEntityContainer="OnStageEntitiesContainer">
+    <EntitySetMapping Name="Shows">
+      <EntityTypeMapping TypeName="IsTypeOf(OnStage.Entities.Show)">
+        <MappingFragment StoreEntitySet="Shows">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StageManagerCueBooks">
+      <EntityTypeMapping TypeName="IsTypeOf(OnStage.Entities.StageManagerCueBook)">
+        <MappingFragment StoreEntitySet="StageManagerCueBooks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CueBooks">
+      <EntityTypeMapping TypeName="IsTypeOf(OnStage.Entities.CueBook)">
+        <MappingFragment StoreEntitySet="CueBooks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CueGroups">
+      <EntityTypeMapping TypeName="IsTypeOf(OnStage.Entities.CueGroup)">
+        <MappingFragment StoreEntitySet="CueGroups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cues">
+      <EntityTypeMapping TypeName="IsTypeOf(OnStage.Entities.Cue)">
+        <MappingFragment StoreEntitySet="Cues">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ScriptPosition" ColumnName="ScriptPosition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Scripts">
+      <EntityTypeMapping TypeName="IsTypeOf(OnStage.Entities.Script)">
+        <MappingFragment StoreEntitySet="Scripts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ShowMasterCueBook" TypeName="OnStage.Entities.ShowMasterCueBook" StoreEntitySet="StageManagerCueBooks">
+      <EndProperty Name="Show">
+        <ScalarProperty Name="Id" ColumnName="Show_Id" />
+      </EndProperty>
+      <EndProperty Name="MasterCueBook">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ShowCueBook" TypeName="OnStage.Entities.ShowCueBook" StoreEntitySet="CueBooks">
+      <EndProperty Name="Show">
+        <ScalarProperty Name="Id" ColumnName="Show_Id" />
+      </EndProperty>
+      <EndProperty Name="CueBook">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CueBookCue" TypeName="OnStage.Entities.CueBookCue" StoreEntitySet="Cues">
+      <EndProperty Name="CueBook">
+        <ScalarProperty Name="Id" ColumnName="CueBook_Id" />
+      </EndProperty>
+      <EndProperty Name="Cue">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MasterCueBookMasterCue" TypeName="OnStage.Entities.MasterCueBookMasterCue" StoreEntitySet="CueGroups">
+      <EndProperty Name="MasterCueBook">
+        <ScalarProperty Name="Id" ColumnName="StageManagerCueBook_Id" />
+      </EndProperty>
+      <EndProperty Name="MasterCue">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MasterCueCue" TypeName="OnStage.Entities.MasterCueCue" StoreEntitySet="Cues">
+      <EndProperty Name="MasterCue">
+        <ScalarProperty Name="Id" ColumnName="MasterCueCue_Cue_Id" />
+      </EndProperty>
+      <EndProperty Name="Cue">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ShowScript" TypeName="OnStage.Entities.ShowScript" StoreEntitySet="Scripts">
+      <EndProperty Name="Show">
+        <ScalarProperty Name="Id" ColumnName="ShowScript_Script_Id" />
+      </EndProperty>
+      <EndProperty Name="Script">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
@@ -158,6 +415,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->

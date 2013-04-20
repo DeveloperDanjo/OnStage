@@ -2,16 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
+    <title>OnStage @if (ViewBag.Title != null && ViewBag.Title != "") { @ViewBag.Title }</title>
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/bootstrap-responsive.min.css")" rel="stylesheet" type="text/css" />
-    <script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" type="text/css" />
+    <style type="text/css">body { padding-top: 40px; }</style>
+    <link href="@Url.Content("~/Content/bootstrap-responsive.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.1.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/modernizr-2.6.2.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.js")" type="text/javascript"></script>
 </head>
 
 <body>
-    @RenderBody()
+    @Html.Partial("_Header")
+    <div class="container">
+        @RenderBody()
+    </div>
 </body>
 </html>

@@ -928,7 +928,7 @@ namespace OnStage.Entities
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("OnStage.Entities", "ShowMasterCueBook", "MasterCueBook")]
-        public StageManagerCueBook MasterCueBook
+        public StageManagerCueBook StageManagerCueBook
         {
             get
             {
@@ -944,7 +944,7 @@ namespace OnStage.Entities
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<StageManagerCueBook> MasterCueBookReference
+        public EntityReference<StageManagerCueBook> StageManagerCueBookReference
         {
             get
             {

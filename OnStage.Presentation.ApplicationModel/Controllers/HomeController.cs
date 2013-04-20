@@ -19,7 +19,9 @@ namespace OnStage.Presentation.ApplicationModel.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var model = showHandler.GetAllShows();
+
+            return View(model);
         }
 
     }

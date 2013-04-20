@@ -20,7 +20,10 @@ namespace OnStage.Presentation.CompositionRoot
     {
         public static void InitializeAutofac()
         {
+            // Make sure that the ApplicationModel assembly gets loaded. For some reason it doesn't always happen (?)
+            Assembly.GetAssembly(typeof(OnStage.Presentation.ApplicationModel.Controllers.HomeController));
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
             var builder = new ContainerBuilder();
             builder.RegisterControllers(assemblies);
             builder.RegisterModelBinders(assemblies);
@@ -36,6 +39,11 @@ namespace OnStage.Presentation.CompositionRoot
             builder.RegisterModule(new EntityFrameworkModule());
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(builder.Build()));
+        }
+
+        public static void GenerateDefaultData()
+        {
+            DefaultDataCreator.CreateDefaultData();
         }
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -63,6 +71,8 @@ namespace OnStage.Presentation.CompositionRoot
             RegisterRoutes(RouteTable.Routes);
 
             InitializeAutofac();
+
+            GenerateDefaultData();
         }
     }
 }
