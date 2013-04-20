@@ -10,18 +10,9 @@ namespace OnStage.Presentation.ApplicationModel.Controllers
     public class HomeController : Controller
     {
 
-        public IShowHandler showHandler;
-
-        public HomeController(IShowHandler showHandler)
-        {
-            this.showHandler = showHandler;
-        }
-
         public ActionResult Index()
         {
-            var model = showHandler.GetAllShows();
-
-            return View(model);
+            return View();
         }
 
     }

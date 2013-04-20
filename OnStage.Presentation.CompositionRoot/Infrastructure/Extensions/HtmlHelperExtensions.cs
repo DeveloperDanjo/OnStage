@@ -11,6 +11,7 @@ namespace OnStage.Presentation.CompositionRoot.Infrastructure.Extensions
 {
     public static class HtmlHelperExtensions
     {
+
         private const string ACTIVE_CLASS = "active";
 
         private static dynamic CloneToExpando(object value)
@@ -28,6 +29,11 @@ namespace OnStage.Presentation.CompositionRoot.Infrastructure.Extensions
         {
             var link = ((string)htmlHelper.ViewContext.RouteData.Values["controller"] == controllerName && (string)htmlHelper.ViewContext.RouteData.Values["action"] == actionName) ? " class=\"" + ACTIVE_CLASS + "\"" : null;
             return new MvcHtmlString("<li" + (link != null ? link : "") + ">" + LinkExtensions.ActionLink(htmlHelper, linkText, actionName, controllerName) + "</li>");
+        }
+
+        public static AssetsHelper Assets(this HtmlHelper htmlHelper)
+        {
+            return AssetsHelper.GetInstance(htmlHelper);
         }
 
     }
