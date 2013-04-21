@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 04/20/2013 12:36:39
+-- Date Created: 04/20/2013 16:59:29
 -- Generated from EDMX file: C:\Users\Dan\Documents\Visual Studio 2010\Projects\OnStage\OnStage.Entities\Entities.edmx
 -- --------------------------------------------------
 
@@ -66,7 +66,8 @@ GO
 -- Creating table 'Shows'
 CREATE TABLE [dbo].[Shows] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Title] nvarchar(max)  NOT NULL
+    [Title] nvarchar(max)  NOT NULL,
+    [Description] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -110,6 +111,7 @@ CREATE TABLE [dbo].[Scripts] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Data] varbinary(max)  NOT NULL,
     [MimeType] nvarchar(max)  NOT NULL,
+    [Encoding] nvarchar(max)  NOT NULL,
     [ShowScript_Script_Id] int  NOT NULL
 );
 GO

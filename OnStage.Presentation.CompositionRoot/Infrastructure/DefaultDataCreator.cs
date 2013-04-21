@@ -41,15 +41,24 @@ namespace OnStage.Presentation.CompositionRoot.Infrastructure
 
             var smbook1 = StageManagerCueBook.CreateStageManagerCueBook(0); smbook1.Cues.Add(smbook1cue);
 
-            var show = Show.CreateShow(0, "Test Show");
+            var show = Show.CreateShow(0, "Test Show", "This is the sample show.");
             show.CueBooks.Add(book1);
             show.CueBooks.Add(book2);
             show.CueBooks.Add(book3);
             show.CueBooks.Add(book4);
             show.StageManagerCueBook = smbook1;
-            show.Script = Script.CreateScript(0, new byte[0], "text/plain");
+            show.Script = CreateBasicScript();
 
             showHandler.AddShow(show);
+        }
+
+        private static Script CreateBasicScript()
+        {
+            var encoding = System.Text.Encoding.GetEncoding("UTF-8");
+            var text = "This is a sample script that will be used in the sample show. I have no idea if this will work! Yay";
+            var bytes = encoding.GetBytes(text);
+
+            return Script.CreateScript(0, bytes, "text/plain", "UTF-8");
         }
 
     }

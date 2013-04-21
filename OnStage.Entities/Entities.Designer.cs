@@ -745,12 +745,14 @@ namespace OnStage.Entities
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="data">Initial value of the Data property.</param>
         /// <param name="mimeType">Initial value of the MimeType property.</param>
-        public static Script CreateScript(global::System.Int32 id, global::System.Byte[] data, global::System.String mimeType)
+        /// <param name="encoding">Initial value of the Encoding property.</param>
+        public static Script CreateScript(global::System.Int32 id, global::System.Byte[] data, global::System.String mimeType, global::System.String encoding)
         {
             Script script = new Script();
             script.Id = id;
             script.Data = data;
             script.MimeType = mimeType;
+            script.Encoding = encoding;
             return script;
         }
 
@@ -832,6 +834,30 @@ namespace OnStage.Entities
         private global::System.String _MimeType;
         partial void OnMimeTypeChanging(global::System.String value);
         partial void OnMimeTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Encoding
+        {
+            get
+            {
+                return _Encoding;
+            }
+            set
+            {
+                OnEncodingChanging(value);
+                ReportPropertyChanging("Encoding");
+                _Encoding = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Encoding");
+                OnEncodingChanged();
+            }
+        }
+        private global::System.String _Encoding;
+        partial void OnEncodingChanging(global::System.String value);
+        partial void OnEncodingChanged();
 
         #endregion
 
@@ -853,11 +879,13 @@ namespace OnStage.Entities
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="title">Initial value of the Title property.</param>
-        public static Show CreateShow(global::System.Int32 id, global::System.String title)
+        /// <param name="description">Initial value of the Description property.</param>
+        public static Show CreateShow(global::System.Int32 id, global::System.String title, global::System.String description)
         {
             Show show = new Show();
             show.Id = id;
             show.Title = title;
+            show.Description = description;
             return show;
         }
 
@@ -915,6 +943,30 @@ namespace OnStage.Entities
         private global::System.String _Title;
         partial void OnTitleChanging(global::System.String value);
         partial void OnTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
 
         #endregion
 

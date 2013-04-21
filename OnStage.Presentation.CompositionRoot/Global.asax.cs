@@ -10,6 +10,9 @@ using System.Reflection;
 using OnStage.Persistence.Concrete;
 using OnStage.Presentation.CompositionRoot.Infrastructure;
 using OnStage.Business.Concrete;
+using Microsoft.AspNet.SignalR;
+using AutofacMvc = Autofac.Integration.Mvc;
+using OnStageInf = OnStage.Presentation.CompositionRoot.Infrastructure;
 
 namespace OnStage.Presentation.CompositionRoot
 {
@@ -37,8 +40,12 @@ namespace OnStage.Presentation.CompositionRoot
                 .AsImplementedInterfaces();
 
             builder.RegisterModule(new EntityFrameworkModule());
+            builder.RegisterModule(new SignalRHubModule());
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(builder.Build()));
+            var container = builder.Build();
+
+            DependencyResolver.SetResolver(new AutofacMvc.AutofacDependencyResolver(container));
+            GlobalHost.DependencyResolver = new SignalRAutofacDependencyResolver(container);
         }
 
         public static void GenerateDefaultData()
@@ -53,6 +60,8 @@ namespace OnStage.Presentation.CompositionRoot
 
         public static void RegisterRoutes(RouteCollection routes)
         {
+            routes.MapHubs();
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
@@ -60,17 +69,16 @@ namespace OnStage.Presentation.CompositionRoot
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
-
         }
 
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
 
+            InitializeAutofac();
+
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-
-            InitializeAutofac();
 
             GenerateDefaultData();
         }

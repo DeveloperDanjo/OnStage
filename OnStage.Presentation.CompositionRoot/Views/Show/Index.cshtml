@@ -1,33 +1,32 @@
 ﻿@model IEnumerable<OnStage.Entities.Show>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Shows";
 }
 
-<h2>Index</h2>
+<h2>Shows</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
+<table class="table table-bordered table-striped">
+<thead>
     <tr>
         <th>
             Title
         </th>
-        <th></th>
+        <th>
+            Description
+        </th>
     </tr>
-
+</thead>
+<tbody>
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Title)
+            @Html.ActionLink(Html.DisplayFor(mi => item.Title).ToHtmlString(), "Details", new { id = item.Id })
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.DisplayFor(mi => item.Description)
         </td>
     </tr>
 }
-
+</tbody>
 </table>

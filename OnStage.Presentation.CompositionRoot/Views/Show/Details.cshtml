@@ -1,20 +1,20 @@
 ﻿@model OnStage.Entities.Show
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Title;
 }
 
-<h2>Details</h2>
+<h2>@Model.Title</h2>
 
-<fieldset>
-    <legend>Show</legend>
+<p>@Model.Description</p>
 
-    <div class="display-label">Title</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Title)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<p>@Html.ActionLink("Stage Manager", "Run", "StageManager", new { id = Model.StageManagerCueBook.Id }, null)</p>
+
+<p>Cue Books</p>
+
+<ul>
+@foreach (var cb in Model.CueBooks)
+{
+    <li>@Html.ActionLink(Html.DisplayFor(m => cb.Name).ToHtmlString(), "Run", "CueBook", new { id = cb.Id }, null)</li>
+}
+</ul>

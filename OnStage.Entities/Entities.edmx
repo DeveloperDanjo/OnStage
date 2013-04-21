@@ -43,6 +43,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="StageManagerCueBooks">
     <Key>
@@ -86,6 +87,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Data" Type="varbinary(max)" Nullable="false" />
     <Property Name="MimeType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Encoding" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ShowScript_Script_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="ShowMasterCueBook">
@@ -215,6 +217,7 @@
           <NavigationProperty Name="CueBooks" Relationship="OnStage.Entities.ShowCueBook" FromRole="Show" ToRole="CueBook" />
           <Property Type="String" Name="Title" Nullable="false" />
           <NavigationProperty Name="Script" Relationship="OnStage.Entities.ShowScript" FromRole="Show" ToRole="Script" />
+          <Property Type="String" Name="Description" Nullable="false" />
         </EntityType>
         <EntityType Name="StageManagerCueBook">
           <Key>
@@ -289,6 +292,7 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Binary" Name="Data" Nullable="false" />
           <Property Type="String" Name="MimeType" Nullable="false" />
+          <Property Type="String" Name="Encoding" Nullable="false" />
         </EntityType>
         <Association Name="ShowScript">
           <End Type="OnStage.Entities.Show" Role="Show" Multiplicity="1" >
@@ -307,6 +311,7 @@
         <MappingFragment StoreEntitySet="Shows">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -350,6 +355,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Data" ColumnName="Data" />
           <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+          <ScalarProperty Name="Encoding" ColumnName="Encoding" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -421,7 +427,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram Name="Entities" DisplayType="true" >
-        <EntityTypeShape EntityType="OnStage.Entities.Show" Width="1.5" PointX="0.75" PointY="3.75" Height="1.9802864583333335" />
+        <EntityTypeShape EntityType="OnStage.Entities.Show" Width="1.5" PointX="0.75" PointY="3.75" Height="2.1725878906249996" />
         <EntityTypeShape EntityType="OnStage.Entities.StageManagerCueBook" Width="1.5" PointX="3" PointY="3.75" Height="1.5956835937499996" />
         <EntityTypeShape EntityType="OnStage.Entities.CueBook" Width="1.5" PointX="3" PointY="6" Height="1.9802864583333317" />
         <AssociationConnector Association="OnStage.Entities.ShowMasterCueBook">
@@ -429,7 +435,7 @@
           <ConnectorPoint PointX="3" PointY="4.547841796875" />
         </AssociationConnector>
         <AssociationConnector Association="OnStage.Entities.ShowCueBook">
-          <ConnectorPoint PointX="1.5" PointY="5.7302864583333335" />
+          <ConnectorPoint PointX="1.5" PointY="5.922587890625" />
           <ConnectorPoint PointX="1.5" PointY="6.9901432291666659" />
           <ConnectorPoint PointX="3" PointY="6.9901432291666659" />
         </AssociationConnector>
@@ -447,11 +453,11 @@
           <ConnectorPoint PointX="6.75" PointY="5.110341796875" />
           <ConnectorPoint PointX="7.5" PointY="5.110341796875" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="OnStage.Entities.Script" Width="1.5" PointX="3" PointY="1.375" Height="1.5956835937499998" />
+        <EntityTypeShape EntityType="OnStage.Entities.Script" Width="1.5" PointX="3" PointY="1.375" Height="1.787985026041667" />
         <AssociationConnector Association="OnStage.Entities.ShowScript">
           <ConnectorPoint PointX="1.5" PointY="3.75" />
-          <ConnectorPoint PointX="1.5" PointY="2.172841796875" />
-          <ConnectorPoint PointX="3" PointY="2.172841796875" />
+          <ConnectorPoint PointX="1.5" PointY="2.2689925130208337" />
+          <ConnectorPoint PointX="3" PointY="2.2689925130208337" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>
