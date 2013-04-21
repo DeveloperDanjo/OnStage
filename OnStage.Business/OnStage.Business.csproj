@@ -66,8 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IStageManagerCueBookHandler.cs" />
+    <Compile Include="Abstract\ICueBookHandler.cs" />
     <Compile Include="Abstract\ICueGroupHandler.cs" />
     <Compile Include="Abstract\IShowHandler.cs" />
+    <Compile Include="Concrete\StageManagerCueBookHandler.cs" />
+    <Compile Include="Concrete\CueBookHandler.cs" />
     <Compile Include="Concrete\CueGroupHandler.cs" />
     <Compile Include="Concrete\ShowHandler.cs" />
     <Compile Include="Hubs\GroupManager.cs" />

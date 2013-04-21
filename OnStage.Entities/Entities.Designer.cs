@@ -622,10 +622,12 @@ namespace OnStage.Entities
         /// Create a new CueGroup object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static CueGroup CreateCueGroup(global::System.Int32 id)
+        /// <param name="number">Initial value of the Number property.</param>
+        public static CueGroup CreateCueGroup(global::System.Int32 id, global::System.Int32 number)
         {
             CueGroup cueGroup = new CueGroup();
             cueGroup.Id = id;
+            cueGroup.Number = number;
             return cueGroup;
         }
 
@@ -659,6 +661,30 @@ namespace OnStage.Entities
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Number
+        {
+            get
+            {
+                return _Number;
+            }
+            set
+            {
+                OnNumberChanging(value);
+                ReportPropertyChanging("Number");
+                _Number = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Number");
+                OnNumberChanged();
+            }
+        }
+        private global::System.Int32 _Number;
+        partial void OnNumberChanging(global::System.Int32 value);
+        partial void OnNumberChanged();
 
         #endregion
 

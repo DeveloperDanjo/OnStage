@@ -10,6 +10,7 @@ using OnStage.Business.Models;
 
 namespace OnStage.Business.Hubs
 {
+    [HubName("Show")]
     public class ShowHub : Hub
     {
 

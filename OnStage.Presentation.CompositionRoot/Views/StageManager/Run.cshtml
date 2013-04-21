@@ -1,0 +1,26 @@
+﻿@model OnStage.Entities.StageManagerCueBook
+
+@{
+    ViewBag.Title = Model.Show.Title + " (Stage Manager)";
+}
+
+<h2>@Model.Show.Title <small>Stage Manager</small></h2>
+@Html.HiddenFor(m => m.Show.Id, new { id = "showId" })
+
+<ul class="cue-list">
+@foreach (var cueGroup in Model.Cues)
+{
+    <li id="@cueGroup.Id">@Html.DisplayFor(m => cueGroup.Number)
+        <ul>
+        @foreach (var cue in cueGroup.Cues)
+        {
+            <li>@Html.CueName(cue)</li>
+        }
+        </ul>
+    </li>
+}
+</ul>
+
+<script type="text/javascript">
+    require(['views/StageManager/page']);
+</script>

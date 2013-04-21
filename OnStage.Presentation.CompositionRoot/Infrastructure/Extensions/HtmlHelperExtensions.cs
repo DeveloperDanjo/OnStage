@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Dynamic;
 using System.Web.Routing;
+using OnStage.Entities;
 
 namespace OnStage.Presentation.CompositionRoot.Infrastructure.Extensions
 {
@@ -34,6 +35,17 @@ namespace OnStage.Presentation.CompositionRoot.Infrastructure.Extensions
         public static AssetsHelper Assets(this HtmlHelper htmlHelper)
         {
             return AssetsHelper.GetInstance(htmlHelper);
+        }
+
+        public static MvcHtmlString CueName<T>(this HtmlHelper<T> htmlHelper, Cue cue)
+        {
+            return new MvcHtmlString(HtmlHelperExtensions.ShortCueName(htmlHelper, cue) + " - " + DisplayExtensions.DisplayFor(htmlHelper, m => cue.Name));
+        }
+
+        public static MvcHtmlString ShortCueName<T>(this HtmlHelper<T> htmlHelper, Cue cue)
+        {
+            return new MvcHtmlString(DisplayExtensions.DisplayFor(htmlHelper, m => cue.CueBook.ShortName).ToHtmlString() +
+                DisplayExtensions.DisplayFor(htmlHelper, m => cue.Number).ToHtmlString());
         }
 
     }

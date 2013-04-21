@@ -119,6 +119,7 @@
     <Compile Include="Infrastructure\SignalRAutofacDependencyResolver.cs" />
     <Compile Include="Infrastructure\SignalRHubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\requireConfig.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.css" />
@@ -209,6 +210,8 @@
     <Content Include="Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\views\CueBook\page.js" />
+    <Content Include="Scripts\views\StageManager\page.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -239,6 +242,8 @@
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Show\Index.cshtml" />
     <Content Include="Views\Show\Details.cshtml" />
+    <Content Include="Views\StageManager\Run.cshtml" />
+    <Content Include="Views\CueBook\Run.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -47,8 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IStageManagerCueBookRepository.cs" />
+    <Compile Include="Abstract\ICueBookRepository.cs" />
     <Compile Include="Abstract\ICueGroupRepository.cs" />
     <Compile Include="Abstract\IShowRepository.cs" />
+    <Compile Include="Concrete\StageManagerCueBookRepository.cs" />
+    <Compile Include="Concrete\CueBookRepository.cs" />
     <Compile Include="Concrete\CueGroupRepository.cs" />
     <Compile Include="Concrete\ShowRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,0 +1,20 @@
+﻿@model OnStage.Entities.CueBook
+
+@{
+    ViewBag.Title = Model.Show.Title + " (" + Model.Name + ")";
+}
+
+<h2>@Model.Show.Title <small>@Model.Name</small></h2>
+@Html.HiddenFor(m => m.Show.Id, new { id = "showId" })
+@Html.HiddenFor(m => m.Id, new { id = "cuebookId" })
+
+<ul>
+@foreach (var cue in Model.Cues)
+{
+    <li>@Html.CueName(cue)</li>
+}
+</ul>
+
+<script type="text/javascript">
+    require(['views/CueBook/page']);
+</script>
