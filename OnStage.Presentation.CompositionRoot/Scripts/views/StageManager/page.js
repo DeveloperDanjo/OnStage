@@ -6,8 +6,6 @@
 
         $.connection.hub.start()
             .done(function () {
-                console.log('started');
-
                 showHub.server.stageManagerJoin(parseInt($('#showId').val(), 10))
                     .done(function () {
                         console.log('joined');
