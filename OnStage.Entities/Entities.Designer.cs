@@ -623,11 +623,15 @@ namespace OnStage.Entities
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="number">Initial value of the Number property.</param>
-        public static CueGroup CreateCueGroup(global::System.Int32 id, global::System.String number)
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        public static CueGroup CreateCueGroup(global::System.Int32 id, global::System.String number, global::System.String name, global::System.String description)
         {
             CueGroup cueGroup = new CueGroup();
             cueGroup.Id = id;
             cueGroup.Number = number;
+            cueGroup.Name = name;
+            cueGroup.Description = description;
             return cueGroup;
         }
 
@@ -685,6 +689,54 @@ namespace OnStage.Entities
         private global::System.String _Number;
         partial void OnNumberChanging(global::System.String value);
         partial void OnNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
 
         #endregion
 

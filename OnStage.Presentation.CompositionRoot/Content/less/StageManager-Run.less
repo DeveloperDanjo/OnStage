@@ -1,0 +1,16 @@
+﻿#stageManagerRun {
+	#content-inner {
+		@heightFix: (@baseLineHeight * 2) + 20px;
+		.box-sizing(border-box);
+		.height-calc(~"100% - @{heightFix}");
+		padding-bottom: 20px;
+
+		[class^=span] {
+			height: 100%;
+		}
+	}
+
+	#scriptViewer {
+		height: 60%;
+	}
+}

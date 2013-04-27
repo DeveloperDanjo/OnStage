@@ -33,7 +33,7 @@ namespace OnStage.Presentation.CompositionRoot.Infrastructure
             var book3 = CueBook.CreateCueBook(0, "Book 3", "C"); book3.Cues.Add(book3cue1);
             var book4 = CueBook.CreateCueBook(0, "Book 4", "D"); book4.Cues.Add(book4cue1);
 
-            var smbook1cue = CueGroup.CreateCueGroup(0, "1");
+            var smbook1cue = CueGroup.CreateCueGroup(0, "1", "Cue 1", "This is the first cue");
             smbook1cue.Cues.Add(book1cue1);
             smbook1cue.Cues.Add(book2cue1);
             smbook1cue.Cues.Add(book3cue1);

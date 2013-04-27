@@ -1,0 +1,22 @@
+﻿.box-sizing(@val) {
+	-moz-box-sizing: @val;
+	     box-sizing: @val;
+}
+
+.height-calc(@val) {
+	height: -webkit-calc(@val);
+	height:    -moz-calc(@val);
+	height:         calc(@val);
+}
+
+.border-radius(@all) {
+	-webkit-border-radius: @all;
+       -moz-border-radius: @all;
+            border-radius: @all;
+}
+
+.overflow-ellipse {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}

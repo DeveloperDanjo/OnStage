@@ -2,10 +2,18 @@
 
 @{
     ViewBag.Title = Model.Show.Title + " (Stage Manager)";
+    ViewBag.PageId = "stageManagerRun";
 }
 
 <h2>@Model.Show.Title <small>Stage Manager</small></h2>
 @Html.HiddenFor(m => m.Show.Id, new { id = "showId" })
+
+<div class="row-fluid" id="content-inner">
+    <div class="span3 cuelist-container" id="cueList"></div>
+    <div class="span9">
+        <div id="scriptViewer"></div>
+    </div>
+</div>
 
 <script type="text/javascript">
     require(['views/StageManager/page']);

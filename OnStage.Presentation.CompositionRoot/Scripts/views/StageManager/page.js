@@ -1,12 +1,13 @@
-﻿require(['jquery', 'signalr', 'hubs'], function ($) {
+﻿define(['jquery', 'underscore', 'shared/cueList', 'shared/scriptViewer', 'signalr', 'hubs'], function ($, _, CueList, ScriptViewer) {
     'use strict';
 
     $(function () {
+        var showId = parseInt($('#showId').val(), 10);
         var showHub = $.connection.Show;
 
         $.connection.hub.start()
             .done(function () {
-                showHub.server.stageManagerJoin(parseInt($('#showId').val(), 10))
+                showHub.server.stageManagerJoin(showId)
                     .done(function () {
                         console.log('joined');
                     })
@@ -18,17 +19,25 @@
                 console.log('could not start');
             });
 
-        $('.cue-list > li').on('click', function () {
-            showHub.server.runCueGroup({
-                CueId: parseInt($(this).attr('id'), 10),
-                Status: 'standby'
-            })
-                .done(function () {
-                    console.log('cued');
-                })
-                .fail(function () {
-                    console.log('could not cue');
+        $.getJSON('/StageManager/Details/' + showId)
+            .done(function (stageManagerCueList) {
+                var cueList = new CueList({
+                    cues: stageManagerCueList.Cues
                 });
+
+                cueList.getElement().appendTo($('#cueList'));
+
+                window.cueList = cueList;
+            })
+            .fail(function () {
+                console.log('could not get cues');
+            });
+
+        var scriptViewer = new ScriptViewer({
+            showId: showId
         });
+
+        scriptViewer.getElement().appendTo($('#scriptViewer'));
+
     });
 });

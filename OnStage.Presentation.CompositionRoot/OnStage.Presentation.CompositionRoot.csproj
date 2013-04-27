@@ -111,6 +111,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\less\bootstrap_variables.less" />
+    <None Include="Content\less\cueList.less" />
+    <None Include="Content\less\mixins.less" />
+    <None Include="Content\less\scriptViewer.less" />
     <None Include="Content\less\Site.less" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
@@ -152,6 +156,8 @@
     <Content Include="Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\shared\cueList.js" />
+    <Content Include="Scripts\shared\scriptViewer.js" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\views\CueBook\page.js" />
     <Content Include="Scripts\views\StageManager\page.js" />
@@ -180,6 +186,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\less\StageManager-Run.less" />
+    <None Include="Content\less\variables.less" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />

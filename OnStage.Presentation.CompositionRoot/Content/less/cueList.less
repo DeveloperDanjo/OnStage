@@ -1,0 +1,64 @@
+﻿.cuelist-container {
+	.box-sizing(border-box);
+	height: 100%;
+	overflow-y: auto;
+
+	.border-radius(5px);
+	border: 1px solid @gray;
+}
+
+ol.cue-list {
+	list-style-type: none;
+	margin: 0;
+
+	> li {
+		padding: 5px 10px;
+
+		.cue-name, .cue-description {
+			display: block;
+			.overflow-ellipse;
+		}
+
+		.cue-name {
+			font-weight: bold;
+		}
+
+		.cue-description {
+			color: @gray;
+			font-size: @fontSizeMini;
+		}
+				
+		&:nth-child(odd) {
+			background-color: @grayLighter;
+		}
+				
+		&:nth-child(even) {
+				
+		}
+
+		&.finished {
+			color: @grayLight;
+			text-decoration: line-through;
+
+			.cue-description {
+				color: @grayLight;
+			}
+		}
+
+		&.standby {
+			background-color: @errorBackground;
+		}
+
+		&.warning {
+			background-color: @warningBackground;
+		}
+
+		&.go {
+			background-color: @successBackground;
+
+			.cue-name {
+				font-style: italic;
+			}
+		}
+	}
+}

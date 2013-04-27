@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 04/27/2013 14:21:28
+-- Date Created: 04/27/2013 17:07:22
 -- Generated from EDMX file: C:\Users\Dan\Documents\Visual Studio 2010\Projects\OnStage\OnStage.Entities\Entities.edmx
 -- --------------------------------------------------
 
@@ -91,6 +91,8 @@ GO
 CREATE TABLE [dbo].[CueGroups] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Number] nvarchar(max)  NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Description] nvarchar(max)  NOT NULL,
     [StageManagerCueBook_Id] int  NOT NULL
 );
 GO
