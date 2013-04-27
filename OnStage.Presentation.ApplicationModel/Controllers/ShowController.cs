@@ -28,5 +28,11 @@ namespace OnStage.Presentation.ApplicationModel.Controllers
         {
             return View(showHandler.GetShow(id));
         }
+
+        public ActionResult Script(int id)
+        {
+            var script = showHandler.GetShow(id).Script;
+            return File(script.Data, script.MimeType);
+        }
     }
 }

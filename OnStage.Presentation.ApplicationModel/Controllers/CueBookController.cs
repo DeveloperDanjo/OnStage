@@ -5,8 +5,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using OnStage.Entities;
+using Ent = OnStage.Entities;
 using OnStage.Business.Abstract;
+using Pres = OnStage.Presentation.ApplicationModel.Models;
 
 namespace OnStage.Presentation.ApplicationModel.Controllers
 { 
@@ -22,6 +23,11 @@ namespace OnStage.Presentation.ApplicationModel.Controllers
         public ActionResult Run(int id)
         {
             return View(cueBookHandler.GetCueBook(id));
+        }
+
+        public JsonResult Details(int id)
+        {
+            return Json(new Pres.CueBook(cueBookHandler.GetCueBook(id)), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -54,11 +54,13 @@
     <Compile Include="Controllers\StageManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ShowController.cs" />
+    <Compile Include="Models\Cue.cs" />
+    <Compile Include="Models\CueBook.cs" />
+    <Compile Include="Models\CueGroup.cs" />
+    <Compile Include="Models\StageManagerCueBook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
