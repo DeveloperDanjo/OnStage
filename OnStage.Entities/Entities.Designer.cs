@@ -250,7 +250,7 @@ namespace OnStage.Entities
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="description">Initial value of the Description property.</param>
         /// <param name="scriptPosition">Initial value of the ScriptPosition property.</param>
-        public static Cue CreateCue(global::System.Int32 id, global::System.Int32 number, global::System.String name, global::System.String description, global::System.Int64 scriptPosition)
+        public static Cue CreateCue(global::System.Int32 id, global::System.String number, global::System.String name, global::System.String description, global::System.Int64 scriptPosition)
         {
             Cue cue = new Cue();
             cue.Id = id;
@@ -297,7 +297,7 @@ namespace OnStage.Entities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Number
+        public global::System.String Number
         {
             get
             {
@@ -307,13 +307,13 @@ namespace OnStage.Entities
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value);
+                _Number = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
         }
-        private global::System.Int32 _Number;
-        partial void OnNumberChanging(global::System.Int32 value);
+        private global::System.String _Number;
+        partial void OnNumberChanging(global::System.String value);
         partial void OnNumberChanged();
     
         /// <summary>
@@ -623,7 +623,7 @@ namespace OnStage.Entities
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="number">Initial value of the Number property.</param>
-        public static CueGroup CreateCueGroup(global::System.Int32 id, global::System.Int32 number)
+        public static CueGroup CreateCueGroup(global::System.Int32 id, global::System.String number)
         {
             CueGroup cueGroup = new CueGroup();
             cueGroup.Id = id;
@@ -667,7 +667,7 @@ namespace OnStage.Entities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 Number
+        public global::System.String Number
         {
             get
             {
@@ -677,13 +677,13 @@ namespace OnStage.Entities
             {
                 OnNumberChanging(value);
                 ReportPropertyChanging("Number");
-                _Number = StructuralObject.SetValidValue(value);
+                _Number = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("Number");
                 OnNumberChanged();
             }
         }
-        private global::System.Int32 _Number;
-        partial void OnNumberChanging(global::System.Int32 value);
+        private global::System.String _Number;
+        partial void OnNumberChanging(global::System.String value);
         partial void OnNumberChanged();
 
         #endregion

@@ -76,6 +76,7 @@
     <Compile Include="Concrete\ShowHandler.cs" />
     <Compile Include="Hubs\GroupManager.cs" />
     <Compile Include="Hubs\ShowHub.cs" />
+    <Compile Include="Models\CrewMember.cs" />
     <Compile Include="Models\CueState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

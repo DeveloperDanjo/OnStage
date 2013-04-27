@@ -66,7 +66,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Number" Type="int" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
     <Property Name="StageManagerCueBook_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Cues">
@@ -74,7 +74,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Number" Type="int" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ScriptPosition" Type="bigint" Nullable="false" />
@@ -257,7 +257,7 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="StageManagerCueBook" Relationship="OnStage.Entities.MasterCueBookMasterCue" FromRole="MasterCue" ToRole="MasterCueBook" />
           <NavigationProperty Name="Cues" Relationship="OnStage.Entities.MasterCueCue" FromRole="MasterCue" ToRole="Cue" />
-          <Property Type="Int32" Name="Number" Nullable="false" />
+          <Property Type="String" Name="Number" Nullable="false" />
         </EntityType>
         <EntityType Name="Cue">
           <Key>
@@ -265,7 +265,7 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="CueBook" Relationship="OnStage.Entities.CueBookCue" FromRole="Cue" ToRole="CueBook" />
-          <Property Type="Int32" Name="Number" Nullable="false" />
+          <Property Type="String" Name="Number" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" />
           <Property Type="String" Name="Description" Nullable="false" />
           <Property Type="Int64" Name="ScriptPosition" Nullable="false" />

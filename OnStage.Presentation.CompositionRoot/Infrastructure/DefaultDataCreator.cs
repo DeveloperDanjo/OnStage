@@ -23,17 +23,17 @@ namespace OnStage.Presentation.CompositionRoot.Infrastructure
 
         private static void CreateBasicShow()
         {
-            var book1cue1 = Cue.CreateCue(0, 1, "Book 1 Cue 1", "", 0);
-            var book2cue1 = Cue.CreateCue(0, 1, "Book 2 Cue 1", "", 0);
-            var book3cue1 = Cue.CreateCue(0, 1, "Book 3 Cue 1", "", 0);
-            var book4cue1 = Cue.CreateCue(0, 1, "Book 4 Cue 1", "", 0);
+            var book1cue1 = Cue.CreateCue(0, "1", "Book 1 Cue 1", "", 0);
+            var book2cue1 = Cue.CreateCue(0, "1", "Book 2 Cue 1", "", 0);
+            var book3cue1 = Cue.CreateCue(0, "1", "Book 3 Cue 1", "", 0);
+            var book4cue1 = Cue.CreateCue(0, "1", "Book 4 Cue 1", "", 0);
 
             var book1 = CueBook.CreateCueBook(0, "Book 1", "A"); book1.Cues.Add(book1cue1);
             var book2 = CueBook.CreateCueBook(0, "Book 2", "B"); book2.Cues.Add(book2cue1);
             var book3 = CueBook.CreateCueBook(0, "Book 3", "C"); book3.Cues.Add(book3cue1);
             var book4 = CueBook.CreateCueBook(0, "Book 4", "D"); book4.Cues.Add(book4cue1);
 
-            var smbook1cue = CueGroup.CreateCueGroup(0, 1);
+            var smbook1cue = CueGroup.CreateCueGroup(0, "1");
             smbook1cue.Cues.Add(book1cue1);
             smbook1cue.Cues.Add(book2cue1);
             smbook1cue.Cues.Add(book3cue1);

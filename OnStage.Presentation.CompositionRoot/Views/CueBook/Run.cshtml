@@ -9,7 +9,7 @@
 @Html.HiddenFor(m => m.Id, new { id = "cuebookId" })
 
 <ul>
-@foreach (var cue in Model.Cues)
+@foreach (var cue in Model.Cues.OrderBy(c => c.Number))
 {
     <li>@Html.CueName(cue)</li>
 }

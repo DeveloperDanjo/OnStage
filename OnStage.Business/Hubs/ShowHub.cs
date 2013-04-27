@@ -15,10 +15,14 @@ namespace OnStage.Business.Hubs
     {
 
         private ICueGroupHandler cuegroupHandler;
+        private ICueBookHandler cuebookHandler;
+        private IDictionary<string, int> showDictionary;
 
-        public ShowHub(ICueGroupHandler cuegroupHandler)
+        public ShowHub(ICueGroupHandler cuegroupHandler, ICueBookHandler cuebookHandler)
         {
             this.cuegroupHandler = cuegroupHandler;
+            this.cuebookHandler = cuebookHandler;
+            this.showDictionary = new Dictionary<string, int>();
         }
 
         private string GetStageManagerGroupName(int showId)
@@ -40,12 +44,16 @@ namespace OnStage.Business.Hubs
         {
             Groups.Add(Context.ConnectionId, GetStageManagerGroupName(showId));
             Groups.Add(Context.ConnectionId, GetShowGroupName(showId));
+            this.showDictionary.Add(Context.ConnectionId, showId);
         }
 
         public void Join(int showId, int cuebookId)
         {
             Groups.Add(Context.ConnectionId, GetShowGroupName(showId));
             Groups.Add(Context.ConnectionId, GetCrewGroupName(showId, cuebookId));
+            this.showDictionary.Add(Context.ConnectionId, showId);
+
+            Clients.Group(GetStageManagerGroupName(showId)).crewJoined(new CrewMember(Context.ConnectionId,cuebookHandler.GetCueBook(cuebookId).Name));
         }
 
         public void RunCueGroup(CueState cueState)
@@ -56,6 +64,16 @@ namespace OnStage.Business.Hubs
                 var owningCueBook = cue.CueBook;
                 Clients.Group(GetCrewGroupName(owningCueBook.Show.Id, owningCueBook.Id)).runCue(new CueState(cue.Id, cueState.Status));
             }
+        }
+
+        public override Task OnDisconnected()
+        {
+            var showId = this.showDictionary[Context.ConnectionId];
+
+            Clients.Group(GetStageManagerGroupName(showId)).crewDisconnected(Context.ConnectionId);
+
+            this.showDictionary.Remove(Context.ConnectionId);
+            return base.OnDisconnected();
         }
 
     }
