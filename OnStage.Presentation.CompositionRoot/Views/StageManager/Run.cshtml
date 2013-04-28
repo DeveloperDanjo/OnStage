@@ -5,7 +5,7 @@
     ViewBag.PageId = "stageManagerRun";
 }
 
-<h2>@Model.Show.Title <small>Stage Manager</small></h2>
+<h2>@Model.Show.Title <small>Stage Manager</small><ul class="connected-crew"></ul></h2>
 @Html.HiddenFor(m => m.Show.Id, new { id = "showId" })
 
 <div class="row-fluid" id="content-inner">

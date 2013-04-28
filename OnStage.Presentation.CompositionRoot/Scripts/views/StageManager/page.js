@@ -1,4 +1,4 @@
-﻿define(['jquery', 'underscore', 'shared/cueList', 'shared/scriptViewer', 'shared/cueDetails', 'shared/alertDialog', 'signalr', 'hubs'], function ($, _, CueList, ScriptViewer, CueDetails, AlertDialog) {
+﻿define(['jquery', 'underscore', 'shared/hubStateChange', 'shared/cueList', 'shared/scriptViewer', 'shared/cueDetails', 'shared/alertDialog', 'signalr', 'hubs'], function ($, _, hubStateChangeSetup, CueList, ScriptViewer, CueDetails, AlertDialog) {
     'use strict';
 
     $(function () {
@@ -7,6 +7,15 @@
 
         $.getJSON('/StageManager/Details/' + showId)
             .done(function (stageManagerCueList) {
+
+                showHub.client.crewJoined = function (id) {
+                    $('.connected-crew').append($('<li class="crew-member" data-id="' + id.ConnectionId + '">' + id.Name + '</li>'));
+                };
+
+                showHub.client.crewDisconnected = function (id) {
+                    $('.connected-crew').find('[data-id="' + id.ConnectionId + '"]').remove();
+                };
+
                 $.connection.hub.start()
                     .done(function () {
                         showHub.server.stageManagerJoin(showId)
@@ -14,33 +23,7 @@
                                 AlertDialog({ title: 'Error', message: 'Could not join the crew for this show.' });
                             });
 
-                        $.connection.hub.stateChanged(function (change) {
-                            if (change.newState === $.signalR.connectionState.reconnecting) {
-                                AlertDialog({ title: 'Error', message: 'You were disconnected from the server. Attempting to reconnect.', showOk: false });
-                            } else if (change.newState === $.signalR.connectionState.connected) {
-                                $('.alert-modal').modal('hide').on('hidden', function () { $(this).remove(); });
-                            } else if (change.newState === $.signalR.connectionState.disconnected) {
-                                var $modal = $('.alert-modal');
-                                if ($modal.length) {
-                                    $modal.modal('hide').on('hidden', function () {
-                                        $(this).remove();
-                                        AlertDialog({ title: 'Error',
-                                            message: 'You were disconnected from the server. Press "OK" to reload, or close this page.',
-                                            hidden: function () {
-                                                location.reload();
-                                            }
-                                        });
-                                    });
-                                } else {
-                                    AlertDialog({ title: 'Error',
-                                        message: 'You were disconnected from the server. Press "OK" to reload, or close this page.',
-                                        hidden: function () {
-                                            location.reload();
-                                        }
-                                    });
-                                }
-                            }
-                        });
+                        hubStateChangeSetup();
                     })
                     .fail(function () {
                         AlertDialog({ title: 'Error', message: 'Could not join the crew for this show.' });
@@ -73,8 +56,13 @@
                     cues: stageManagerCueList.Cues,
                     stageManager: true,
                     selectCue: function (number, id) {
-                        scriptViewer.highlightCue(number);
                         cueDetails.setCue(stageManagerCueList.Cues[id]);
+                    },
+                    mouseoverCue: function (number, id) {
+                        scriptViewer.highlightCue(number);
+                    },
+                    mouseoutCue: function (number, id) {
+                        scriptViewer.unhighlightCue(number);
                     },
                     triggerCue: triggerCue
                 });

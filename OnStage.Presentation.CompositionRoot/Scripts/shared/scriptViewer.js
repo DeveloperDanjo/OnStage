@@ -22,7 +22,7 @@
 
         this.$iframe.on('load', function () {
             that._document = that.$iframe.get(0).contentWindow.document;
-            var $body = $(that._document.body);
+            var $body = that.$body = $(that._document.body);
             var $pre = $('pre', that._document);
 
             // Can't create cue markers if we aren't in a plain text situation or a browser that supports document.createRange
@@ -41,9 +41,8 @@
                     number: cue[keys.number],
                     name: cue[keys.name]
                 }), that._document);
-                $post.css('left', rect.left); $post.css('top', rect.bottom);
+                $post.css('left', rect.left - 5); $post.css('top', rect.bottom);
                 $post.appendTo($body);
-                $post.css('margin-left', $post.width() / -2)
             });
         });
     }
@@ -54,18 +53,23 @@
 
     ScriptViewer.prototype = {
         setState: function (number, state) {
-            findCue($('.cue-post', this._document), number).attr('class', 'cue-post').addClass(state);
+            var $cue = findCue($('.cue-post', this._document), number).attr('class', 'cue-post').addClass(state);
+
+            if (state === 'go') {
+                this.$body.scrollTop($cue.offset().top - (this.$iframe.height() / 4));
+            }
         },
 
         setScript: function (showId) {
             this.$iframe.attr('src', '/Show/Script/' + showId);
         },
 
-        highlightCue: function (number, timeout) {
-            var $cue = findCue($('.cue-post', this._document), number).addClass('visible');
-            setTimeout(function () {
-                $cue.removeClass('visible');
-            }, timeout || 2000);
+        highlightCue: function (number) {
+            findCue($('.cue-post', this._document), number).addClass('visible');
+        },
+
+        unhighlightCue: function (number) {
+            findCue($('.cue-post', this._document), number).removeClass('visible');
         },
 
         getElement: function () {

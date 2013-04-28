@@ -16,13 +16,12 @@ namespace OnStage.Business.Hubs
 
         private ICueGroupHandler cuegroupHandler;
         private ICueBookHandler cuebookHandler;
-        private IDictionary<string, int> showDictionary;
+        private static IDictionary<string, CrewState> showDictionary = new Dictionary<string, CrewState>();
 
         public ShowHub(ICueGroupHandler cuegroupHandler, ICueBookHandler cuebookHandler)
         {
             this.cuegroupHandler = cuegroupHandler;
             this.cuebookHandler = cuebookHandler;
-            this.showDictionary = new Dictionary<string, int>();
         }
 
         private string GetStageManagerGroupName(int showId)
@@ -44,16 +43,23 @@ namespace OnStage.Business.Hubs
         {
             Groups.Add(Context.ConnectionId, GetStageManagerGroupName(showId));
             Groups.Add(Context.ConnectionId, GetShowGroupName(showId));
-            this.showDictionary.Add(Context.ConnectionId, showId);
+            ShowHub.showDictionary.Add(Context.ConnectionId, new CrewState() { ShowId = showId, CueBookName = "Stage Manager", IsStageManager = true });
+
+            foreach (var kvp in ShowHub.showDictionary.Where(kvp => !kvp.Value.IsStageManager))
+            {
+                Clients.Caller.crewJoined(new CrewMember(kvp.Key, kvp.Value.CueBookName));
+            }
         }
 
         public void Join(int showId, int cuebookId)
         {
+            var cueBook = cuebookHandler.GetCueBook(cuebookId);
+
             Groups.Add(Context.ConnectionId, GetShowGroupName(showId));
             Groups.Add(Context.ConnectionId, GetCrewGroupName(showId, cuebookId));
-            this.showDictionary.Add(Context.ConnectionId, showId);
+            ShowHub.showDictionary.Add(Context.ConnectionId, new CrewState() { ShowId = showId, CueBookName = cueBook.Name, IsStageManager = false });
 
-            Clients.Group(GetStageManagerGroupName(showId)).crewJoined(new CrewMember(Context.ConnectionId,cuebookHandler.GetCueBook(cuebookId).Name));
+            Clients.Group(GetStageManagerGroupName(showId)).crewJoined(new CrewMember(Context.ConnectionId, cueBook.Name));
         }
 
         public void RunCueGroup(CueState cueState)
@@ -62,17 +68,22 @@ namespace OnStage.Business.Hubs
             foreach (var cue in cueGroup.Cues)
             {
                 var owningCueBook = cue.CueBook;
-                Clients.Group(GetCrewGroupName(owningCueBook.Show.Id, owningCueBook.Id)).runCue(new CueState(cue.Id, cueState.Status));
+                Clients.Group(GetCrewGroupName(owningCueBook.Show.Id, owningCueBook.Id)).runCue(new CueState(cue.Id, cue.Number, cueState.Status));
             }
         }
 
         public override Task OnDisconnected()
         {
-            var showId = this.showDictionary[Context.ConnectionId];
-
-            Clients.Group(GetStageManagerGroupName(showId)).crewDisconnected(Context.ConnectionId);
-
-            this.showDictionary.Remove(Context.ConnectionId);
+            CrewState crewState;
+            if (ShowHub.showDictionary.TryGetValue(Context.ConnectionId, out crewState))
+            {
+                Clients.Group(GetStageManagerGroupName(crewState.ShowId)).crewDisconnected(new CrewMember(Context.ConnectionId, null));
+                ShowHub.showDictionary.Remove(Context.ConnectionId);
+            }
+            else
+            {
+                //
+            }
             return base.OnDisconnected();
         }
 

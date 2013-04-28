@@ -19,7 +19,9 @@
                 shortBookName: 'ShortBookName'
             },
             selectCue: $.noop,
-            triggerCue: $.noop
+            triggerCue: $.noop,
+            mouseoverCue: $.noop,
+            mouseoutCue: $.noop
         });
 
         this.$cueList = $(cueListTemplate())
@@ -27,6 +29,16 @@
                 var $this = $(this);
                 e.stopPropagation();
                 that.options.selectCue($this.data('number'), parseInt($this.data('id'), 10));
+            })
+            .on('mouseover', '> li', function (e) {
+                var $this = $(this);
+                e.stopPropagation();
+                that.options.mouseoverCue($this.data('number'), parseInt($this.data('id'), 10));
+            })
+            .on('mouseout', '> li', function (e) {
+                var $this = $(this);
+                e.stopPropagation();
+                that.options.mouseoutCue($this.data('number'), parseInt($this.data('id'), 10));
             });
 
         _.each(options.cues, function (cue, index) {

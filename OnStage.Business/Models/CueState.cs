@@ -10,11 +10,16 @@ namespace OnStage.Business.Models
 
         public int CueId { get; set; }
 
+        public string Number { get; set; }
+
         public string Status { get; set; }
 
-        public CueState(int cueId, string status)
+        public CueState(int cueId, string number, string status)
         {
             CueId = cueId;
+
+            Number = number;
+            
             Status = status;
         }
 

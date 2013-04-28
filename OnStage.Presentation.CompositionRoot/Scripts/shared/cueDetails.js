@@ -33,7 +33,7 @@
 
             if (state) {
                 this.$cueDetails.find('.details-header').removeClass('standby warning go stage-manager').addClass(state);
-            } else if (sm) {
+            } else {
                 this.$cueDetails.find('.details-header').removeClass('standby warning go').addClass('stage-manager');
             }
 

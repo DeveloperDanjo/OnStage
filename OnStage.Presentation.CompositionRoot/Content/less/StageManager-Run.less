@@ -23,4 +23,34 @@
 			height: 100%;
 		}
 	}
+
+	.connected-crew {
+		display: inline-block;
+		list-style-type: none;
+		float: right;
+		font-size: @baseFontSize;
+		font-weight: initial;
+		margin: 0;
+
+		.crew-member {
+			display: inline-block;
+			padding: 0;
+
+			&:after {
+				content: ', ';
+			}
+
+			&:last-child:after {
+				content: '';
+			}
+		}
+
+		&:before {
+			content: '[ ';
+		}
+
+		&:after {
+			content: ' ]';
+		}
+	}
 }

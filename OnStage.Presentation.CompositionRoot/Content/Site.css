@@ -170,3 +170,50 @@ body {
 #stageManagerRun #bottomRow [class^=span] {
   height: 100%;
 }
+#stageManagerRun .connected-crew {
+  display: inline-block;
+  list-style-type: none;
+  float: right;
+  font-size: 14px;
+  font-weight: initial;
+  margin: 0;
+}
+#stageManagerRun .connected-crew .crew-member {
+  display: inline-block;
+  padding: 0;
+}
+#stageManagerRun .connected-crew .crew-member:after {
+  content: ', ';
+}
+#stageManagerRun .connected-crew .crew-member:last-child:after {
+  content: '';
+}
+#stageManagerRun .connected-crew:before {
+  content: '[ ';
+}
+#stageManagerRun .connected-crew:after {
+  content: ' ]';
+}
+#cueBookRun #content-inner {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: -webkit-calc(100% - 60px);
+  height: -moz-calc(100% - 60px);
+  height: calc(100% - 60px);
+  padding-bottom: 20px;
+}
+#cueBookRun #content-inner [class^=span] {
+  height: 100%;
+}
+#cueBookRun #scriptViewer {
+  height: 60%;
+}
+#cueBookRun #bottomRow {
+  height: -webkit-calc(40% - 20px);
+  height: -moz-calc(40% - 20px);
+  height: calc(40% - 20px);
+  margin-top: 20px;
+}
+#cueBookRun #bottomRow [class^=span] {
+  height: 100%;
+}

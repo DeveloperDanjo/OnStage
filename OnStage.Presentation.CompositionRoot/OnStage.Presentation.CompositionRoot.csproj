@@ -112,9 +112,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\less\bootstrap_variables.less" />
+    <None Include="Content\less\CueBook-Run.less" />
     <None Include="Content\less\cueDetails.less" />
     <None Include="Content\less\cueList.less" />
     <None Include="Content\less\mixins.less" />
+    <None Include="Content\less\Script.less" />
     <None Include="Content\less\scriptViewer.less" />
     <None Include="Content\less\Site.less" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="Infrastructure\EntityFrameworkModule.cs" />
     <Compile Include="Infrastructure\Extensions\AssetHelper.cs" />
     <Compile Include="Infrastructure\Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Infrastructure\Hamlet.cs" />
     <Compile Include="Infrastructure\SignalRAutofacDependencyResolver.cs" />
     <Compile Include="Infrastructure\SignalRHubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -161,6 +164,7 @@
     <Content Include="Scripts\shared\alertDialog.js" />
     <Content Include="Scripts\shared\cueDetails.js" />
     <Content Include="Scripts\shared\cueList.js" />
+    <Content Include="Scripts\shared\hubStateChange.js" />
     <Content Include="Scripts\shared\scriptViewer.js" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\views\CueBook\page.js" />
@@ -253,6 +257,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>"$(SolutionDir)packages\dotLess.1.3.1.0\tool\dotless.compiler.exe" -v "$(ProjectDir)Content\less\Site.less" "$(ProjectDir)Content\Site.css"</PreBuildEvent>
+    <PreBuildEvent>"$(SolutionDir)packages\dotLess.1.3.1.0\tool\dotless.compiler.exe" -v "$(ProjectDir)Content\less\Site.less" "$(ProjectDir)Content\Site.css"
+"$(SolutionDir)packages\dotLess.1.3.1.0\tool\dotless.compiler.exe" -v "$(ProjectDir)Content\less\Script.less" "$(ProjectDir)Content\Script.css"</PreBuildEvent>
   </PropertyGroup>
 </Project>

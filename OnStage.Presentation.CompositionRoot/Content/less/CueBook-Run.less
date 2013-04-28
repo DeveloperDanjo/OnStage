@@ -1,0 +1,26 @@
+﻿#cueBookRun {
+	#content-inner {
+		@heightFix: (@baseLineHeight * 2) + 20px;
+		.box-sizing(border-box);
+		.height-calc(~"100% - @{heightFix}");
+		padding-bottom: 20px;
+
+		[class^=span] {
+			height: 100%;
+		}
+	}
+
+	#scriptViewer {
+		height: 60%;
+	}
+
+	#bottomRow {
+		@heightFix: 0.02127659574468085 * 940px;
+		.height-calc(~"40% - @{heightFix}");
+		margin-top: @heightFix;
+
+		[class^=span] {
+			height: 100%;
+		}
+	}
+}

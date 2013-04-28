@@ -1,49 +1,50 @@
-﻿pre {
-	word-wrap: break-word;
-	white-space: pre-wrap;
+.overflow-ellipse {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
-
+pre {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
 .cue-post {
-	font-family: sans-serif;
-	font-size: 11px;
-	position: absolute;
-	border: 1px solid #467db8;
-	background: white;
-	padding: 2px;
-	opacity: 0.25;
-	transition: opacity 0.25s;
-	-webkit-transition: opacity 0.25s;
-	-webkit-border-radius: 2px;
-	   -moz-border-radius: 2px;
-	        border-radius: 2px;
+  font-family: sans-serif;
+  font-size: 11px;
+  position: absolute;
+  border: 1px solid #467db8;
+  background: white;
+  padding: 2px;
+  opacity: 0.25;
+  -webkit-transition: opacity 0.25s;
+  transition: opacity 0.25s;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
 }
-
-.cue-post:hover, .cue-post.standby, .cue-post.warning, .cue-post.go, .cue-post.visible {
-	opacity: 1.0;
+.cue-post:hover,
+.cue-post.standby,
+.cue-post.warning,
+.cue-post.go,
+.cue-post.visible {
+  opacity: 1.0;
 }
-
 .cue-post.standby {
-	color: red;
+  background: #f2dede;
 }
-
 .cue-post.warning {
-	color: yellow;
+  background: #fcf8e3;
 }
-
 .cue-post.go {
-	color: green;
+  background: #dff0d8;
 }
-
 .cue-post:before {
-	content: '';
-	position: absolute;
-	left: -webkit-calc(50% - 5px);
-	left:    -moz-calc(50% - 5px);
-	left:         calc(50% - 5px);
-	bottom: 100%;
-	width: 0px;
-	height: 0px;
-	border-style: solid;
-	border-width: 0 5px 6px 5px;
-	border-color: transparent transparent #467db8 transparent;
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 5px 6px 5px;
+  border-color: transparent transparent #467db8 transparent;
 }
