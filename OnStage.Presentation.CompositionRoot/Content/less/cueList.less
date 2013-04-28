@@ -5,59 +5,81 @@
 
 	.border-radius(5px);
 	border: 1px solid @gray;
-}
 
-ol.cue-list {
-	list-style-type: none;
-	margin: 0;
+	ul.cue-controls {
+		list-style-type: none;
+		margin: 0;
+		position: absolute;
+		top: 5px;
+		right: 5px;
 
-	> li {
-		padding: 5px 10px;
+		> li {
+			display: inline-block;
 
-		.cue-name, .cue-description {
-			display: block;
-			.overflow-ellipse;
-		}
-
-		.cue-name {
-			font-weight: bold;
-		}
-
-		.cue-description {
-			color: @gray;
-			font-size: @fontSizeMini;
-		}
-				
-		&:nth-child(odd) {
-			background-color: @grayLighter;
-		}
-				
-		&:nth-child(even) {
-				
-		}
-
-		&.finished {
-			color: @grayLight;
-			text-decoration: line-through;
-
-			.cue-description {
-				color: @grayLight;
+			.cue-control {
+				.box-sizing(border-box);
+				width: 24px;
+				margin-left: 8px;
 			}
 		}
+	}
 
-		&.standby {
-			background-color: @errorBackground;
-		}
+	ol.cue-list {
+		list-style-type: none;
+		margin: 0;
 
-		&.warning {
-			background-color: @warningBackground;
-		}
+		> li {
+			.clickable();
+			position: relative;
+			padding: 5px 10px;
 
-		&.go {
-			background-color: @successBackground;
+			.cue-name, .cue-description {
+				display: block;
+				.overflow-ellipse;
+			}
 
 			.cue-name {
-				font-style: italic;
+				font-weight: bold;
+				margin-right: 91px;
+				height: 22px;
+			}
+
+			.cue-description {
+				color: @gray;
+				font-size: @fontSizeMini;
+			}
+				
+			&:nth-child(odd) {
+				background-color: @grayLighter;
+			}
+				
+			&:nth-child(even) {
+				
+			}
+
+			&.finished {
+				color: @grayLight;
+				text-decoration: line-through;
+
+				.cue-description {
+					color: @grayLight;
+				}
+			}
+
+			&.standby {
+				background-color: @errorBackground;
+			}
+
+			&.warning {
+				background-color: @warningBackground;
+			}
+
+			&.go {
+				background-color: @successBackground;
+
+				.cue-name {
+					font-style: italic;
+				}
 			}
 		}
 	}

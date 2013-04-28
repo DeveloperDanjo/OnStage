@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\less\bootstrap_variables.less" />
+    <None Include="Content\less\cueDetails.less" />
     <None Include="Content\less\cueList.less" />
     <None Include="Content\less\mixins.less" />
     <None Include="Content\less\scriptViewer.less" />
@@ -127,6 +128,7 @@
     <Compile Include="Infrastructure\SignalRAutofacDependencyResolver.cs" />
     <Compile Include="Infrastructure\SignalRHubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\Script.css" />
     <Content Include="Scripts\lodash.js" />
     <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\requireConfig.js" />
@@ -156,6 +158,8 @@
     <Content Include="Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\shared\alertDialog.js" />
+    <Content Include="Scripts\shared\cueDetails.js" />
     <Content Include="Scripts\shared\cueList.js" />
     <Content Include="Scripts\shared\scriptViewer.js" />
     <Content Include="Scripts\text.js" />

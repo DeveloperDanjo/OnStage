@@ -625,13 +625,15 @@ namespace OnStage.Entities
         /// <param name="number">Initial value of the Number property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="description">Initial value of the Description property.</param>
-        public static CueGroup CreateCueGroup(global::System.Int32 id, global::System.String number, global::System.String name, global::System.String description)
+        /// <param name="scriptPosition">Initial value of the ScriptPosition property.</param>
+        public static CueGroup CreateCueGroup(global::System.Int32 id, global::System.String number, global::System.String name, global::System.String description, global::System.Int64 scriptPosition)
         {
             CueGroup cueGroup = new CueGroup();
             cueGroup.Id = id;
             cueGroup.Number = number;
             cueGroup.Name = name;
             cueGroup.Description = description;
+            cueGroup.ScriptPosition = scriptPosition;
             return cueGroup;
         }
 
@@ -737,6 +739,30 @@ namespace OnStage.Entities
         private global::System.String _Description;
         partial void OnDescriptionChanging(global::System.String value);
         partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ScriptPosition
+        {
+            get
+            {
+                return _ScriptPosition;
+            }
+            set
+            {
+                OnScriptPositionChanging(value);
+                ReportPropertyChanging("ScriptPosition");
+                _ScriptPosition = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ScriptPosition");
+                OnScriptPositionChanged();
+            }
+        }
+        private global::System.Int64 _ScriptPosition;
+        partial void OnScriptPositionChanging(global::System.Int64 value);
+        partial void OnScriptPositionChanged();
 
         #endregion
 

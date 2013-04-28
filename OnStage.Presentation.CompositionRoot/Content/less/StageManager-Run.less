@@ -13,4 +13,14 @@
 	#scriptViewer {
 		height: 60%;
 	}
+
+	#bottomRow {
+		@heightFix: 0.02127659574468085 * 940px;
+		.height-calc(~"40% - @{heightFix}");
+		margin-top: @heightFix;
+
+		[class^=span] {
+			height: 100%;
+		}
+	}
 }

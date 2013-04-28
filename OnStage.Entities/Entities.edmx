@@ -69,6 +69,7 @@
     <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ScriptPosition" Type="bigint" Nullable="false" />
     <Property Name="StageManagerCueBook_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Cues">
@@ -262,6 +263,7 @@
           <Property Type="String" Name="Number" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" />
           <Property Type="String" Name="Description" Nullable="false" />
+          <Property Type="Int64" Name="ScriptPosition" Nullable="false" />
         </EntityType>
         <EntityType Name="Cue">
           <Key>
@@ -344,6 +346,7 @@
           <ScalarProperty Name="Number" ColumnName="Number" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ScriptPosition" ColumnName="ScriptPosition" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -448,19 +451,19 @@
           <ConnectorPoint PointX="1.5" PointY="6.9901432291666659" />
           <ConnectorPoint PointX="3" PointY="6.9901432291666659" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="OnStage.Entities.CueGroup" Width="1.5" PointX="5.25" PointY="3.75" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="OnStage.Entities.CueGroup" Width="1.5" PointX="5.25" PointY="3.75" Height="2.3648893229166656" />
         <EntityTypeShape EntityType="OnStage.Entities.Cue" Width="1.5" PointX="7.5" PointY="4.875" Height="2.1725878906249996" />
         <AssociationConnector Association="OnStage.Entities.CueBookCue">
-          <ConnectorPoint PointX="4.5" PointY="6.5237939453125" />
-          <ConnectorPoint PointX="7.5" PointY="6.5237939453125" />
+          <ConnectorPoint PointX="4.5" PointY="6.6124886067708326" />
+          <ConnectorPoint PointX="7.5" PointY="6.6124886067708326" />
         </AssociationConnector>
         <AssociationConnector Association="OnStage.Entities.MasterCueBookMasterCue">
           <ConnectorPoint PointX="4.5" PointY="4.547841796875" />
           <ConnectorPoint PointX="5.25" PointY="4.547841796875" />
         </AssociationConnector>
         <AssociationConnector Association="OnStage.Entities.MasterCueCue">
-          <ConnectorPoint PointX="6.75" PointY="5.3987939453125" />
-          <ConnectorPoint PointX="7.5" PointY="5.3987939453125" />
+          <ConnectorPoint PointX="6.75" PointY="5.4949446614583328" />
+          <ConnectorPoint PointX="7.5" PointY="5.4949446614583328" />
         </AssociationConnector>
         <EntityTypeShape EntityType="OnStage.Entities.Script" Width="1.5" PointX="3" PointY="1.375" Height="1.787985026041667" />
         <AssociationConnector Association="OnStage.Entities.ShowScript">

@@ -1,0 +1,48 @@
+﻿.cue-details {
+	.box-sizing(border-box);
+	height: 100%;
+	padding: 10px;
+	border: 1px solid @gray;
+	.border-radius(5px);
+	overflow-y: auto;
+
+	.details-header {
+		font-size: @fontSizeLarge;
+		font-weight: bold;
+		margin: -10px -10px 0;
+		padding: 10px;
+
+		&.stage-manager {
+			background: @infoBackground;
+		}
+		
+		&.standby {
+			background: @errorBackground;
+		}
+
+		&.warning {
+			background: @warningBackground;
+		}
+
+		&.go {
+			background: @successBackground;
+		}
+	}
+
+	.cue-header {
+		margin-top: 6px;
+		font-weight: bold;
+	}
+
+	.cue-description {
+		margin-top: 4px;
+	}
+
+	.subcue-header {
+		margin-top: 12px;
+	}
+
+	.sub-cues {
+		margin-top: 2px;
+	}
+}

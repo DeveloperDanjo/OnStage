@@ -25,48 +25,111 @@ body {
   border-radius: 5px;
   border: 1px solid #555555;
 }
-ol.cue-list {
+.cuelist-container ul.cue-controls {
+  list-style-type: none;
+  margin: 0;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.cuelist-container ul.cue-controls > li {
+  display: inline-block;
+}
+.cuelist-container ul.cue-controls > li .cue-control {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 24px;
+  margin-left: 8px;
+}
+.cuelist-container ol.cue-list {
   list-style-type: none;
   margin: 0;
 }
-ol.cue-list > li {
+.cuelist-container ol.cue-list > li {
+  cursor: hand;
+  cursor: pointer;
+  position: relative;
   padding: 5px 10px;
 }
-ol.cue-list > li .cue-name,
-ol.cue-list > li .cue-description {
+.cuelist-container ol.cue-list > li .cue-name,
+.cuelist-container ol.cue-list > li .cue-description {
   display: block;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-ol.cue-list > li .cue-name {
+.cuelist-container ol.cue-list > li .cue-name {
   font-weight: bold;
+  margin-right: 91px;
+  height: 22px;
 }
-ol.cue-list > li .cue-description {
+.cuelist-container ol.cue-list > li .cue-description {
   color: #555555;
   font-size: 10.5px;
 }
-ol.cue-list > li:nth-child(odd) {
+.cuelist-container ol.cue-list > li:nth-child(odd) {
   background-color: #eeeeee;
 }
-ol.cue-list > li.finished {
+.cuelist-container ol.cue-list > li.finished {
   color: #999999;
   text-decoration: line-through;
 }
-ol.cue-list > li.finished .cue-description {
+.cuelist-container ol.cue-list > li.finished .cue-description {
   color: #999999;
 }
-ol.cue-list > li.standby {
+.cuelist-container ol.cue-list > li.standby {
   background-color: #f2dede;
 }
-ol.cue-list > li.warning {
+.cuelist-container ol.cue-list > li.warning {
   background-color: #fcf8e3;
 }
-ol.cue-list > li.go {
+.cuelist-container ol.cue-list > li.go {
   background-color: #dff0d8;
 }
-ol.cue-list > li.go .cue-name {
+.cuelist-container ol.cue-list > li.go .cue-name {
   font-style: italic;
+}
+.cue-details {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid #555555;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  overflow-y: auto;
+}
+.cue-details .details-header {
+  font-size: 17.5px;
+  font-weight: bold;
+  margin: -10px -10px 0;
+  padding: 10px;
+}
+.cue-details .details-header.stage-manager {
+  background: #d9edf7;
+}
+.cue-details .details-header.standby {
+  background: #f2dede;
+}
+.cue-details .details-header.warning {
+  background: #fcf8e3;
+}
+.cue-details .details-header.go {
+  background: #dff0d8;
+}
+.cue-details .cue-header {
+  margin-top: 6px;
+  font-weight: bold;
+}
+.cue-details .cue-description {
+  margin-top: 4px;
+}
+.cue-details .subcue-header {
+  margin-top: 12px;
+}
+.cue-details .sub-cues {
+  margin-top: 2px;
 }
 .script-viewer-container {
   -moz-box-sizing: border-box;
@@ -97,4 +160,13 @@ ol.cue-list > li.go .cue-name {
 }
 #stageManagerRun #scriptViewer {
   height: 60%;
+}
+#stageManagerRun #bottomRow {
+  height: -webkit-calc(40% - 20px);
+  height: -moz-calc(40% - 20px);
+  height: calc(40% - 20px);
+  margin-top: 20px;
+}
+#stageManagerRun #bottomRow [class^=span] {
+  height: 100%;
 }
