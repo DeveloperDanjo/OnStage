@@ -17,6 +17,7 @@ namespace OnStage.Business.Hubs
         private ICueGroupHandler cuegroupHandler;
         private ICueBookHandler cuebookHandler;
         private static IDictionary<string, CrewState> showDictionary = new Dictionary<string, CrewState>();
+        private static IDictionary<int, IList<CueState>> cueDictionary = new Dictionary<int, IList<CueState>>();
 
         public ShowHub(ICueGroupHandler cuegroupHandler, ICueBookHandler cuebookHandler)
         {
@@ -39,8 +40,56 @@ namespace OnStage.Business.Hubs
             return GetShowGroupName(showId) + "-" + cuebookId.ToString();
         }
 
+
+        private static void UpdateCueGroupState(CueState state, ShowHub hub)
+        {
+            var show = hub.cuegroupHandler.GetCueGroup(state.CueId).StageManagerCueBook.Show;
+            if (!cueDictionary.ContainsKey(show.Id))
+            {
+                cueDictionary.Add(show.Id, new List<CueState>());
+            }
+            var internalCueState = cueDictionary[show.Id].FirstOrDefault(cs => cs.CueId == state.CueId);
+            if (internalCueState == null)
+            {
+                cueDictionary[show.Id].Add(state);
+            }
+            else
+            {
+                internalCueState.Status = state.Status;
+            }
+        }
+
+        private static void EmptyCueGroupState(int showId)
+        {
+            cueDictionary.Remove(showId);
+        }
+
+        private static IEnumerable<CueState> GetPreviousCues(int showId)
+        {
+            if (cueDictionary.ContainsKey(showId))
+            {
+                return cueDictionary[showId];
+            }
+            return Enumerable.Empty<CueState>();
+        }
+
+        private static IEnumerable<CueState> GetPreviousCues(int showId, int cuebookId, ShowHub hub)
+        {
+            foreach (var cs in GetPreviousCues(showId))
+            {
+                var realCues = hub.cuegroupHandler.GetCueGroup(cs.CueId).Cues.Where(c => c.CueBook.Id == cuebookId);
+                foreach (var c in realCues)
+                {
+                    yield return new CueState(c.Id, c.Number, cs.Status);
+                }
+            }
+        }
+
+
         public void StageManagerJoin(int showId)
         {
+            ShowHub.EmptyCueGroupState(showId);
+
             Groups.Add(Context.ConnectionId, GetStageManagerGroupName(showId));
             Groups.Add(Context.ConnectionId, GetShowGroupName(showId));
             ShowHub.showDictionary.Add(Context.ConnectionId, new CrewState() { ShowId = showId, CueBookName = "Stage Manager", IsStageManager = true });
@@ -60,6 +109,11 @@ namespace OnStage.Business.Hubs
             ShowHub.showDictionary.Add(Context.ConnectionId, new CrewState() { ShowId = showId, CueBookName = cueBook.Name, IsStageManager = false });
 
             Clients.Group(GetStageManagerGroupName(showId)).crewJoined(new CrewMember(Context.ConnectionId, cueBook.Name));
+
+            foreach (var cs in ShowHub.GetPreviousCues(showId, cuebookId, this))
+            {
+                Clients.Caller.runCue(cs);
+            }
         }
 
         public void RunCueGroup(CueState cueState)
@@ -70,6 +124,8 @@ namespace OnStage.Business.Hubs
                 var owningCueBook = cue.CueBook;
                 Clients.Group(GetCrewGroupName(owningCueBook.Show.Id, owningCueBook.Id)).runCue(new CueState(cue.Id, cue.Number, cueState.Status));
             }
+
+            ShowHub.UpdateCueGroupState(cueState, this);
         }
 
         public override Task OnDisconnected()
@@ -79,10 +135,6 @@ namespace OnStage.Business.Hubs
             {
                 Clients.Group(GetStageManagerGroupName(crewState.ShowId)).crewDisconnected(new CrewMember(Context.ConnectionId, null));
                 ShowHub.showDictionary.Remove(Context.ConnectionId);
-            }
-            else
-            {
-                //
             }
             return base.OnDisconnected();
         }
